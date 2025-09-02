@@ -149,7 +149,7 @@ export async function authenticaAction(prevState: ActionStateType, formData: For
         };
     }
 
-    console.log("Token guardado en cookies", data);
+    console.log("Token guardado en cookies", data.role);
     // Save the token
     if (data.access_token) {
         (await cookies()).set({
@@ -157,10 +157,18 @@ export async function authenticaAction(prevState: ActionStateType, formData: For
             value: data.access_token,
             path: "/",
             httpOnly: true,
-            maxAge: 60 * 60 * 24 * 7,
+            maxAge: 60 * 60 * 24 * 7, // 7 days
             sameSite: "lax",
         });
     }
+
+
+    const { role } = data.user;
+    console.log("roleee", role)
+    if(role === 'ADMIN') redirect("/admin/dashboard");
+    if(role === 'CLIENT') redirect("/profile");
+
+    console.log("Token guardado en cookies", data);
 
     redirect("/profile");
 }

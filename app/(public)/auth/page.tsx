@@ -12,7 +12,7 @@ export default function VerifyEmailPage() {
 
             <div className="w-full max-w-sm">
                 <Logo />
-                <h1 className="text-2xl mb-6">
+                <h1 className="text-xl mb-6">
                     Ingresa tu correo para continuar
                 </h1>
 
