@@ -1,0 +1,43 @@
+import getToken from "../auth/token";
+import type { TPaginatedUsers } from "../types";
+
+
+
+type GetUsersParams = {
+    page?: number;
+    limit?: number;
+    search?: string;
+    status?: string;
+};
+
+
+
+export async function getUsers(params: GetUsersParams = {}): Promise<TPaginatedUsers> {
+    try {
+        const token = await getToken();
+
+        const query = new URLSearchParams();
+        if (params.page) query.append("page", params.page.toString());
+        if (params.limit) query.append("limit", params.limit.toString());
+        if (params.search) query.append("search", params.search);
+        if (params.status) query.append("status", params.status);
+
+        const url = `${process.env.API_URL}/users?${query.toString()}`;
+        console.log("la urlr", url)
+
+        const response = await fetch(url, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+            cache: "no-store",
+        });
+
+        const data: TPaginatedUsers = await response.json();
+        console.log("Fetched users:", data);
+        return data;
+
+    } catch (error) {
+        console.error("Error fetching users:", error);
+        throw error;
+    }
+}
