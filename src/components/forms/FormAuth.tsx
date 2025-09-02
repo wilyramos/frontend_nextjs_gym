@@ -3,6 +3,9 @@
 import { useActionState, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { checkEmailAction } from "@/app/(public)/auth/actions";
+import Spinner from "../common/Spinner";
+import ErrorMessage from "../common/ErrorMessage";
+
 
 export default function CheckEmailPage() {
     const router = useRouter();
@@ -28,24 +31,24 @@ export default function CheckEmailPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Correo"
-                className="w-full border px-3 py-2 rounded bg-gray-200 border-b-gray-400 border-b-2"
+                className="w-full border px-3 py-2 rounded-xl bg-gray-200 border-b-gray-400 border-b-2"
                 name="email"
             />
 
             {/* Mostrar errores debajo del input */}
             {state.errors.length > 0 && (
-                <ul className="text-red-500 text-sm space-y-1">
+                <ErrorMessage>
                     {state.errors.map((err, idx) => (
-                        <li key={idx}>• {err}</li>
+                        <div key={idx}>{err}</div>
                     ))}
-                </ul>
+                </ErrorMessage>
             )}
 
             <button
                 type="submit"
-                className="w-full bg-black text-white py-2 rounded"
+                className="w-full bg-black text-white py-2 rounded-xl h-10"
             >
-                {isPending ? "Verificando..." : "Continuar"}
+                {isPending ? <Spinner /> : "Continuar"}
             </button>
         </form>
     );

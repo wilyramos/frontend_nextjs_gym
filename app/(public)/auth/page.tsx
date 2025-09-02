@@ -8,7 +8,7 @@ export default function VerifyEmailPage() {
 
 
     return (
-        <div className="min-h-screen flex items-center justify-center">
+        <div className="min-h-screen flex items-center justify-center p-2">
 
             <div className="w-full max-w-sm">
                 <Logo />
