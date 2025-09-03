@@ -1,10 +1,12 @@
 
+import ListPricing from "@/src/components/home/ListPricing";
 import Link from "next/link";
 
 export default function Home() {
     return (
-        <main className="min-h-screen bg-white flex items-center justify-center px-6">
-            <div className="text-center max-w-2xl">
+        <main className="">
+            <section className="min-h-screen bg-amber-300 flex flex-col justify-center items-center text-white text-center px-4">
+                <div className="text-center max-w-2xl">
                 {/* Hero Title */}
                 <h1 className="text-5xl md:text-6xl font-bold text-black mb-6 leading-tight">
                     Transform Your Body, <br /> Elevate Your Mind
@@ -24,11 +26,19 @@ export default function Home() {
                     >
                         Get Started
                     </Link>
-                    <button className="px-6 py-3 rounded-xl border border-gray-400 text-black font-medium hover:bg-gray-100 transition">
+                    <Link
+                        href="/about"
+                        className="px-6 py-3 rounded-xl border border-gray-400 text-black font-medium hover:bg-gray-100 transition">
                         Learn More
-                    </button>
+                    </Link>
+
                 </div>
             </div>
+            </section>
+
+            <section>
+                <ListPricing />
+            </section>
         </main>
     );
 }

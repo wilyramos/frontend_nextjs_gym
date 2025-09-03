@@ -1,6 +1,6 @@
 
 import Logo from "@/src/components/common/Logo";
-import FormAuth from "@/src/components/forms/FormAuth";
+// import FormAuth from "@/src/components/forms/FormAuth";
 
 
 
@@ -8,15 +8,15 @@ export default function VerifyEmailPage() {
 
 
     return (
-        <div className="min-h-screen flex items-center justify-center p-2">
+        <div className="min-h-screen flex items-center justify-center p-2 bg-amber-300">
 
-            <div className="w-full max-w-sm">
+            <div className="w-full max-w-sm border-gray-50 p-4 rounded-xl shadow-lg text-center">
                 <Logo />
-                <h1 className="text-xl mb-6">
-                    Ingresa tu correo para continuar
+                <h1 className="text-start pt-8 text-gray-600 text-sm">
+                    Ingresa tu correo para continuar:
                 </h1>
 
-                <FormAuth />
+                {/* <FormAuth /> */}
             </div>
         </div>
     );

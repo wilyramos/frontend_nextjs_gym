@@ -1,14 +1,17 @@
 "use client";
 
-import { useActionState, useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useActionState, useState, useEffect } from "react";
 import { checkEmailAction } from "@/app/(public)/auth/actions";
 import Spinner from "../common/Spinner";
 import ErrorMessage from "../common/ErrorMessage";
+import Link from "next/link";
 
 
-export default function CheckEmailPage() {
-    const router = useRouter();
+type CheckEmailPageProps = {
+    onNext: (next: "login" | "register", email: string) => void;
+};
+
+export default function CheckEmailForm({ onNext }: CheckEmailPageProps) {
     const [email, setEmail] = useState("");
     const [state, formAction, isPending] = useActionState(checkEmailAction, {
         errors: [],
@@ -18,14 +21,14 @@ export default function CheckEmailPage() {
 
     useEffect(() => {
         if (state.exists === true) {
-            router.push(`/auth/login?email=${email}`); 
+            onNext("login", email);
         } else if (state.exists === false) {
-            router.push(`/auth/register?email=${email}`);
+            onNext("register", email);
         }
-    }, [state.exists, router]);
+    }, [state.exists, email, onNext]);
 
     return (
-        <form action={formAction} className="space-y-4">
+        <form action={formAction} className="space-y-4 py-4">
             <input
                 type="email"
                 value={email}
@@ -35,13 +38,12 @@ export default function CheckEmailPage() {
                 name="email"
             />
 
-            {/* Mostrar errores debajo del input */}
             {state.errors.length > 0 && (
-                <ErrorMessage>
+                <div className="text-red-600 text-sm">
                     {state.errors.map((err, idx) => (
-                        <div key={idx}>{err}</div>
+                        <ErrorMessage key={idx}>{err}</ErrorMessage>
                     ))}
-                </ErrorMessage>
+                </div>
             )}
 
             <button
@@ -50,6 +52,14 @@ export default function CheckEmailPage() {
             >
                 {isPending ? <Spinner /> : "Continuar"}
             </button>
+
+              <Link
+                    href="/auth/forgot-password"
+                    className="text-sm text-gray-600 hover:underline"
+                >
+                    Olvidé mi contraseña
+                </Link>
+
         </form>
     );
 }
