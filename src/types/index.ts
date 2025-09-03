@@ -78,3 +78,67 @@ export const createPaginatedSchema = <T extends z.ZodTypeAny>(entitySchema: T) =
 
 export const PaginatedUsersSchema = createPaginatedSchema(UserSchema);
 export type TPaginatedUsers = z.infer<typeof PaginatedUsersSchema>;
+
+
+// SUBSCRIPTION
+
+
+export enum SubscriptionPlanEnumValues {
+  MONTHLY = "MONTHLY",
+  TRIMESTRAL = "TRIMESTRAL",
+  YEARLY = "YEARLY",
+  PREMIUM = "PREMIUM",
+}
+
+// Enums según tu entidad
+export const SubscriptionPlanEnum = z.enum([
+    "MONTHLY",
+    "TRIMESTRAL",
+    "YEARLY",
+    "PREMIUM",
+]);
+
+export const SubscriptionStatusEnum = z.enum([
+    "ACTIVE",
+    "PAST_DUE",
+    "CANCELED",
+    "EXPIRED",
+]);
+
+// Tipo para Payment (simplificado, adapta según tu entidad Payment)
+export const PaymentSchema = z.object({
+    id: z.number().optional(),
+    method: z.enum(["card", "mercadopago", "paypal"]).optional(),
+    status: z.enum(["pending", "success", "failed"]).optional(),
+    amount: z.number().optional(),
+    date: z.date().optional(),
+    transactionId: z.string().optional(),
+});
+
+// Tipo para Membership (simplificado, adapta según tu entidad Membership)
+export const MembershipSchema = z.object({
+    id: z.number().optional(),
+    type: z.string().optional(),
+    startDate: z.date().optional(),
+    endDate: z.date().optional(),
+});
+
+// Esquema principal de Subscription
+export const SubscriptionSchema = z.object({
+    id: z.number().optional(),
+    userId: z.number().optional(), // puedes usar UserSchema si quieres anidar
+    plan: SubscriptionPlanEnum,
+    status: SubscriptionStatusEnum,
+    startDate: z.date().optional(),
+    endDate: z.date().nullable().optional(),
+    externalId: z.string().nullable().optional(),
+    payments: z.array(PaymentSchema).optional(),
+    membership: MembershipSchema.optional(),
+});
+
+// Tipos TypeScript generados automáticamente
+export type Subscription = z.infer<typeof SubscriptionSchema>;
+export type Payment = z.infer<typeof PaymentSchema>;
+export type Membership = z.infer<typeof MembershipSchema>;
+export type SubscriptionPlan = z.infer<typeof SubscriptionPlanEnum>;
+export type SubscriptionStatus = z.infer<typeof SubscriptionStatusEnum>;

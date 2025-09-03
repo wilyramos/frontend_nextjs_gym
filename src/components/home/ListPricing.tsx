@@ -97,7 +97,7 @@ export default function ListPricing() {
                             </div>
 
                             <Link
-                                href="/checkout"
+                                href="/checkout/choose"
                                 className={`mt-4 mb-10 w-full py-2 rounded-lg font-bold text-white transition-colors flex justify-center items-center 
                   ${plan.popular ? "bg-amber-400 hover:bg-amber-400" : "bg-gray-800 hover:bg-gray-900 "}`}
                             >

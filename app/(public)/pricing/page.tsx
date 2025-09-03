@@ -8,8 +8,8 @@ export default function PricingPage() {
     return (
         <>
 
-            <ListPricing />
 
+            <ListPricing />
         </>
     );
 }

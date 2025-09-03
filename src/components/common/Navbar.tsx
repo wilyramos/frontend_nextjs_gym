@@ -4,11 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import AuthSheet from "../sheets/AuthSheet";
 
-interface NavbarClientProps {
-    isLoggedIn: boolean;
-}
-
-export default function NavbarClient({ isLoggedIn }: NavbarClientProps) {
+export default function Navbar() {
     const [scrolled, setScrolled] = useState(false);
 
     useEffect(() => {
@@ -26,8 +22,9 @@ export default function NavbarClient({ isLoggedIn }: NavbarClientProps) {
 
     return (
         <nav
-            className={`fixed top-0 left-0 w-full z-50 transition-colors duration-300 ${scrolled ? "bg-white/90 backdrop-blur-md shadow-sm" : "bg-transparent"
-                }`}
+            className={`fixed top-0 left-0 w-full z-50 transition-colors duration-300 ${
+                scrolled ? "bg-white/90 backdrop-blur-md shadow-sm" : "bg-transparent"
+            }`}
         >
             <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
                 {/* Logo */}
@@ -38,7 +35,9 @@ export default function NavbarClient({ isLoggedIn }: NavbarClientProps) {
                 {/* Desktop Menu */}
                 <div className="hidden md:flex items-center gap-8">
                     {desktopLinks}
-                    {!isLoggedIn && <AuthSheet />}
+                    <div className="flex">
+                        <AuthSheet />
+                    </div>
                 </div>
             </div>
         </nav>

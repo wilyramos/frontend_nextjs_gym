@@ -1,8 +1,8 @@
 "use server";
 
 
-import { registerSchema, loginSchema } from "@/src/types"
-import { cookies } from "next/headers"
+import { registerSchema, loginSchema } from "@/src/types";
+import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 
@@ -53,9 +53,9 @@ export async function checkEmailAction(
             success: data.exists ? "Email encontrado" : "Email no encontrado",
             exists: data.exists,
         };
-    } catch (error: any) {
+    } catch (error) {
         return {
-            errors: [error.message || "Error inesperado"],
+            errors: [error || "Error inesperado"],
             success: "",
         };
     }

@@ -7,7 +7,6 @@ import LoginForm from "@/src/components/forms/LoginForm";
 import RegisterForm from "@/src/components/forms/RegisterForm";
 import { FiUser } from "react-icons/fi";
 import CheckEmailForm from "../forms/CheckEmailForm";
-import Link from "next/link";
 
 export default function AuthSheet() {
     const [view, setView] = useState<"check" | "login" | "register">("check");
