@@ -1,15 +1,16 @@
+import { getCurrentUser } from "@/src/auth/currentUser";
 
 
 
-export default function ProfilePage() {
+export default async function ProfilePage() {
 
+    const user = await getCurrentUser();
 
+    if (!user) {
+        return <div>Loading...</div>;
+    }
     
-    const user = {
-        name: "John Doe",
-        email: "johndoe@email.com",
-        membership: "Premium",
-    };
+    
 
     return (
         <div className="max-w-2xl mx-auto flex flex-col  pt-10">
@@ -27,8 +28,8 @@ export default function ProfilePage() {
                 </div>
 
                 <div>
-                    <p className="text-gray-500 text-sm">Membership</p>
-                    <p className="text-lg font-medium">{user.membership}</p>
+                    <p className="text-gray-500 text-sm">Phone</p>
+                    <p className="text-lg font-medium">{user.phone}</p>
                 </div>
             </div>
 
