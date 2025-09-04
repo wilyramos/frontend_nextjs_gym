@@ -50,7 +50,7 @@ export default function AuthSheet() {
                     className="flex items-center gap-2 px-4 py-2  border border-black rounded-lg text-sm hover:bg-amber-400 hover:text-gray-900 cursor-pointer"
                 >
                     <FiUser className="text-base" />
-                    Iniciar sesión / registrarse
+                    {/* Iniciar sesión / registrarse */}
                 </button>
             </SheetTrigger>
 

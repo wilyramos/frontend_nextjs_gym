@@ -37,6 +37,8 @@ export const UserSchema = z.object({
     name: z.string().min(1, "El nombre es obligatorio"),
     email: z.string().email(),
     role: UserRoleEnum,
+    phone: z.string().nullable(),
+    document: z.string().nullable(),
     provider: AuthProviderEnum,
     googleId: z.string().nullable(),
 });
@@ -47,6 +49,9 @@ export const UserCreateSchema = z.object({
     password: z.string().min(6, "La contraseña debe tener mínimo 6 caracteres"),
     role: UserRoleEnum.optional().default("CLIENT"),
     provider: AuthProviderEnum.optional().default("LOCAL"),
+    phone: z.string().nullable().optional(),
+    document: z.string().nullable().optional(),
+    // googleId: z.string().nullable().optional(),
 });
 
 // Actualizar usuario (parcial)
