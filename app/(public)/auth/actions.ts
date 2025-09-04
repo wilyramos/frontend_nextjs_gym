@@ -166,7 +166,7 @@ export async function authenticaAction(prevState: ActionStateType, formData: For
     const { role } = data.user;
     console.log("roleee", role)
     if(role === 'ADMIN') redirect("/admin/dashboard");
-    if(role === 'CLIENT') redirect("/profile");
+    if(role === 'CLIENT') redirect("/overview");
 
     console.log("Token guardado en cookies", data);
 

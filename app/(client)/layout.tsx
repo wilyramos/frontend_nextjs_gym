@@ -2,22 +2,26 @@ import { getCurrentUser } from "@/src/auth/currentUser";
 import Link from "next/link";
 import { Home, User, CreditCard, Dumbbell, Settings } from "lucide-react";
 import React from "react";
+import { redirect } from 'next/navigation';
+
 
 export default async function Layout({ children }: { children: React.ReactNode }) {
     const user = await getCurrentUser();
+    if (!user) redirect('/auth/login');
+
 
     const navItems = [
         { name: "Overview", href: "/overview", icon: <Home className="w-5 h-5" /> },
-        { name: "Perfil", href: "/dashboard/profile", icon: <User className="w-5 h-5" /> },
-        { name: "Membresías", href: "/dashboard/memberships", icon: <Dumbbell className="w-5 h-5" /> },
-        { name: "Pagos", href: "/dashboard/payments", icon: <CreditCard className="w-5 h-5" /> },
-        { name: "Configuración", href: "/dashboard/settings", icon: <Settings className="w-5 h-5" /> },
+        { name: "Perfil", href: "/profile", icon: <User className="w-5 h-5" /> },
+        { name: "Membresías", href: "/memberships", icon: <Dumbbell className="w-5 h-5" /> },
+        { name: "Pagos", href: "/payments", icon: <CreditCard className="w-5 h-5" /> },
+        { name: "Configuración", href: "/settings", icon: <Settings className="w-5 h-5" /> },
     ];
 
     return (
         <div className="min-h-screen flex flex-col bg-white">
             {/* Header / Top Navigation */}
-            <header className="bg-amber-300 text-black shadow-md">
+            <header className="hidden md:block bg-amber-300 text-black shadow-md">
                 <div className="container mx-auto flex items-center justify-between p-4">
                     <div>
                         <h1 className="text-2xl font-bold">GoGYM</h1>
@@ -40,7 +44,7 @@ export default async function Layout({ children }: { children: React.ReactNode }
             </header>
 
             {/* Main Content */}
-            <main className="flex-1 container mx-auto p-6 text-gray-800">{children}</main>
+            <main className="flex-1 container mx-auto p-6 text-gray-800 max-w-3xl">{children}</main>
 
             {/* Footer */}
             <footer className="bg-black text-gray-300 text-center py-3">

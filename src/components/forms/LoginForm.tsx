@@ -6,7 +6,7 @@ import { useActionState } from "react";
 import { authenticaAction } from "@/app/(public)/auth/actions";
 import Spinner from "../common/Spinner";
 import Link from "next/link";
-import { GoogleLogin, CredentialResponse } from '@react-oauth/google';
+import { CredentialResponse } from '@react-oauth/google';
 
 
 
@@ -45,12 +45,12 @@ export default function LoginForm() {
         <div>
             <div className="flex justify-center">
 
-                <GoogleLogin
+                {/* <GoogleLogin
                     onSuccess={handleGoogleLoginSuccess}
                     onError={() => toast.error("Error al iniciar sesión con Google")}
                     size="large"
                     shape="circle"
-                />
+                /> */}
 
             </div>
 

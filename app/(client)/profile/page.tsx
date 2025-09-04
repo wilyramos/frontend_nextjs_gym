@@ -9,14 +9,16 @@ export default async function ProfilePage() {
     if (!user) {
         return <div>Loading...</div>;
     }
-    
-    
+
+
 
     return (
-        <div className="max-w-2xl mx-auto flex flex-col  pt-10">
-            <h1 className="text-2xl font-bold mb-4">My Profile</h1>
 
-            <div className="space-y-4">
+        <div className="max-w-2xl mx-auto flex flex-col ">
+            <h1 className="text-3xl font-bold text-black mb-2">My Profile</h1>
+            <p className="text-gray-500 mb-6">Manage your personal information</p>
+
+            <div className="bg-white rounded-xl shadow p-6 mb-8 border border-gray-200">
                 <div>
                     <p className="text-gray-500 text-sm">Name</p>
                     <p className="text-lg font-medium">{user.name}</p>
