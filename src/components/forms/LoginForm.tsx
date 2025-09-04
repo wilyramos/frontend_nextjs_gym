@@ -1,27 +1,23 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useTransition } from "react";
 import { toast } from "sonner";
 import { useActionState } from "react";
 import { authenticaAction } from "@/app/(public)/auth/actions";
 import Spinner from "../common/Spinner";
 import Link from "next/link";
+import { GoogleLogin, CredentialResponse } from '@react-oauth/google';
 
-type LoginFormProps = {
-    initialEmail?: string;
-    readOnlyEmail?: boolean;
-    onBack?: () => void;
-    onSuccess?: () => void;
-};
 
-export default function LoginForm({
-    initialEmail = "",
-    readOnlyEmail = false,
-    onBack,
-    onSuccess,
-}: LoginFormProps) {
-    const [email, setEmail] = useState(initialEmail);
+
+export default function LoginForm() {
+
+
+    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+
+    const [isPendingTransition, startTransition] = useTransition();
+
 
     const [state, dispatch, isPending] = useActionState(authenticaAction, {
         errors: [],
@@ -33,73 +29,98 @@ export default function LoginForm({
         if (state.errors.length > 0) {
             state.errors.forEach((err) => toast.error(err));
         }
-        if (state.success && onSuccess) {
-            onSuccess();
-        }
-    }, [state, onSuccess]);
+    }, [state]);
+
+    const handleGoogleLoginSuccess = ({ credential }: CredentialResponse) => {
+        if (!credential) return toast.error("Token de Google no recibido");
+
+        startTransition(async () => {
+            // const result = await googleLoginAction({ credential, redirectTo });
+            // if (result?.error) toast.error(result.error);
+        });
+    };
 
     return (
-        <form action={dispatch} className="space-y-6">
-            {/* Email */}
-            <div>
-                <label className="block text-sm font-medium text-gray-800 mb-1">Correo</label>
-                <input
-                    type="email"
-                    name="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="tucorreo@ejemplo.com"
-                    readOnly={readOnlyEmail}
-                    className={`w-full px-3 py-2 rounded-md border-b-2 ${readOnlyEmail
-                        ? "bg-gray-100 text-gray-600"
-                        : "bg-gray-200 border-b-gray-400"
-                        }`}
-                    required
+
+        <div>
+            <div className="flex justify-center">
+
+                <GoogleLogin
+                    onSuccess={handleGoogleLoginSuccess}
+                    onError={() => toast.error("Error al iniciar sesión con Google")}
+                    size="large"
+                    shape="circle"
                 />
+
             </div>
 
-            {/* Contraseña */}
-            <div>
-                <label className="block text-sm font-medium text-gray-800 mb-1">Contraseña</label>
-                <input
-                    type="password"
-                    name="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder="********"
-                    className="w-full px-3 py-2 rounded-md bg-gray-200 border-b-2 border-b-gray-400"
-                    required
-                />
+            <div className="relative text-center text-sm text-black my-6">
+                <hr className="border-gray-300 mb-2" />
+                <span className="bg-gray-50 px-2 absolute -top-3 left-1/2 -translate-x-1/2 font-bold">
+                    o
+                </span>
             </div>
 
-            {/* Botones */}
-            <div className="flex justify-between items-center">
-                {onBack && (
+            <form action={dispatch} className="space-y-6">
+                {/* Email */}
+                <div>
+                    <label className="block text-sm font-medium text-gray-800 mb-1">Correo</label>
+                    <input
+                        type="email"
+                        name="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder="tucorreo@ejemplo.com"
+                        className="w-full px-3 py-2 rounded-md bg-gray-200 border-b-2 border-b-gray-400"
+                        required
+                    />
+                </div>
+
+                {/* Contraseña */}
+                <div>
+                    <label className="block text-sm font-medium text-gray-800 mb-1">Contraseña</label>
+                    <input
+                        type="password"
+                        name="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        placeholder="********"
+                        className="w-full px-3 py-2 rounded-md bg-gray-200 border-b-2 border-b-gray-400"
+                        required
+                    />
+                </div>
+
+                {/* Botones */}
+                <div className="flex justify-between items-center">
+
+
                     <button
-                        type="button"
-                        onClick={onBack}
-                        className="text-sm text-gray-600 hover:underline"
+                        type="submit"
+                        disabled={isPending}
+                        className="bg-black text-white py-2 px-4 rounded-md hover:bg-gray-800 flex items-center justify-center h-10 w-30"
                     >
-                        Volver
+                        {isPending || isPendingTransition ? <Spinner /> : "Ingresar"}
                     </button>
+                </div>
 
-                )}
-
-                <button
-                    type="submit"
-                    disabled={isPending}
-                    className="bg-black text-white py-2 px-4 rounded-md hover:bg-gray-800 flex items-center justify-center h-10 w-30"
+                <div className="flex justify-between">
+                    <Link
+                    href="/auth/forgot-password"
+                    className="text-sm text-gray-600 hover:underline"
                 >
-                    {isPending ? <Spinner /> : "Ingresar"}
-                </button>
-            </div>
+                    Olvidé mi contraseña
+                </Link>
 
-            <Link
-                href="/auth/forgot-password"
-                className="text-sm text-gray-600 hover:underline"
-            >
-                Olvidé mi contraseña
-            </Link>
-        </form>
+                <Link
+                    href="/auth/register"
+                    className="text-sm text-gray-600 hover:underline"
+                >
+                    Crear una cuenta
+                </Link>
+                </div>
+            </form>
+
+        </div>
+
     );
 }

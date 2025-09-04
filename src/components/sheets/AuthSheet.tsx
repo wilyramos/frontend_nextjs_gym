@@ -3,8 +3,8 @@
 
 import { useState } from "react";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription, SheetTrigger } from "@/components/ui/sheet";
-import LoginForm from "@/src/components/forms/LoginForm";
-import RegisterForm from "@/src/components/forms/RegisterForm";
+import LoginFormSheet from "@/src/components/forms/LoginFormSheet";
+import RegisterForm from "@/src/components/forms/RegisterFormSheet";
 import { FiUser } from "react-icons/fi";
 import CheckEmailForm from "../forms/CheckEmailForm";
 
@@ -23,7 +23,7 @@ export default function AuthSheet() {
             case "check":
                 return <CheckEmailForm onNext={handleNext} />;
             case "login":
-                return <LoginForm initialEmail={email} onBack={() => setView("check")} />;
+                return <LoginFormSheet initialEmail={email} onBack={() => setView("check")} />;
             case "register":
                 return <RegisterForm email={email} onBack={() => setView("check")} />;
             default:

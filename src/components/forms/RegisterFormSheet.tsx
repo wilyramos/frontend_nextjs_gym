@@ -5,13 +5,16 @@ import { useActionState } from "react";
 import { toast } from "sonner";
 import { registerAction } from "@/app/(public)/auth/actions";
 import Spinner from "../common/Spinner";
-import Link from "next/link";
 
+type RegisterFormProps = {
+    email?: string; // email recibido desde CheckEmailPage
+    onBack?: () => void;
+    onSuccess?: () => void;
+};
 
-export default function RegisterForm() {
+export default function RegisterFormSheet({ email = "", onBack, onSuccess }: RegisterFormProps) {
     const [name, setName] = useState("");
     const [password, setPassword] = useState("");
-    const [email, setEmail] = useState("");
 
     const [state, dispatch, isPending] = useActionState(registerAction, {
         errors: [],
@@ -23,7 +26,11 @@ export default function RegisterForm() {
             state.errors.forEach((err) => toast.error(err));
         }
 
-    }, [state]);
+        if (state.success && onSuccess) {
+            toast.success(state.success);
+            onSuccess();
+        }
+    }, [state, onSuccess]);
 
     return (
         <form action={dispatch} className="space-y-5 max-w-md mx-auto">
@@ -34,11 +41,10 @@ export default function RegisterForm() {
                 </label>
                 <input
                     type="email"
-                    value={email}
                     name="email"
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Tu correo electrónico"
-                    className="w-full border border-gray-300 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
+                    value={email}
+                    className="w-full border border-gray-300 px-3 py-2 rounded-md bg-gray-100 text-gray-600"
+                    readOnly
                 />
             </div>
 
@@ -74,7 +80,15 @@ export default function RegisterForm() {
 
             {/* Botones */}
             <div className="flex justify-between items-center">
-
+                {onBack && (
+                    <button
+                        type="button"
+                        onClick={onBack}
+                        className="text-sm text-gray-600 hover:underline"
+                    >
+                        Volver
+                    </button>
+                )}
 
                 <button
                     type="submit"
@@ -83,17 +97,6 @@ export default function RegisterForm() {
                 >
                     {isPending ? <Spinner /> : "Registrarme"}
                 </button>
-            </div>
-
-            <div>
-
-                <Link
-                    href="/auth/login"
-                    className="text-sm text-gray-600 hover:underline"
-                >
-                    ¿Ya tienes una cuenta? Inicia sesión
-                </Link>
-
             </div>
         </form>
     );

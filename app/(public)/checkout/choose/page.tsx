@@ -1,108 +1,60 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { useCheckoutStore } from "@/src/store/checkoutStore";
-import { SubscriptionPlanEnumValues } from "@/src/types";
+import { useState } from "react";
+import plans from "@/src/data/subscriptionPlans.json";
+import CardPlan from "@/src/components/checkout/CardPlan";
 import Link from "next/link";
-
-type Plan = {
-    id: SubscriptionPlanEnumValues;
-    name: string;
-    price: number;
-    duration: string;
-    features: string[];
-};
-
-const plans: Plan[] = [
-    {
-        id: SubscriptionPlanEnumValues.MONTHLY,
-        name: "Básico",
-        price: 29,
-        duration: "Mensual",
-        features: ["Acceso al gimnasio", "Clases grupales limitadas"],
-    },
-    {
-        id: SubscriptionPlanEnumValues.TRIMESTRAL,
-        name: "Intermedio",
-        price: 79,
-        duration: "Trimestral",
-        features: ["Todo lo del básico", "Clases grupales ilimitadas"],
-    },
-    {
-        id: SubscriptionPlanEnumValues.YEARLY,
-        name: "Pro",
-        price: 249,
-        duration: "Anual",
-        features: ["Todo lo del intermedio", "Entrenamiento personal", "Acceso VIP"],
-    },
-    {
-        id: SubscriptionPlanEnumValues.PREMIUM,
-        name: "Premium",
-        price: 499,
-        duration: "Anual",
-        features: ["Todo lo del Pro", "Sauna y spa ilimitado", "Clases especiales"],
-    },
-];
+import { toast } from "sonner";
 
 export default function ChoosePage() {
-    const subscription = useCheckoutStore((state) => state.subscription);
-    const setSubscription = useCheckoutStore((state) => state.setSubscription);
+    const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
 
-    const [selectedPlan, setSelectedPlan] = useState<SubscriptionPlanEnumValues>(
-        (subscription.plan as SubscriptionPlanEnumValues) || plans[0].id
-    );
-
-
-    useEffect(() => {
-        if (selectedPlan) {
-            setSubscription({ plan: selectedPlan });
+    const handleContinue = () => {
+        if (!selectedPlan) {
+            toast.error("Por favor, selecciona un plan antes de continuar");
+            return;
         }
-    }, [selectedPlan, setSubscription]);
+        // Navegar a summary si hay plan
+        window.location.href = `/checkout/person?plan=${selectedPlan}`;
+    };
 
     return (
-        <div className="max-w-6xl mx-auto px-6 py-12">
-            <h1 className="text-3xl font-bold text-center mb-10 text-gray-900">
-                Elige tu plan
+        <div className="py-16 px-6 flex flex-col items-center">
+            {/* Título */}
+            <h1 className="text-4xl font-extrabold text-center text-black mb-6">
+                Nuestros Planes
             </h1>
+            <p className="text-gray-600 text-center max-w-2xl mb-12">
+                Escoge el plan que mejor se adapte a tus objetivos y comienza tu entrenamiento hoy mismo.
+            </p>
 
-            <div className="grid md:grid-cols-4 gap-6 mb-8">
-                {plans.map((plan) => {
-                    const isSelected = selectedPlan === plan.id;
-                    const borderBg = isSelected ? "border-black bg-gray-100" : "border-gray-300 bg-white";
-
-                    return (
-                        <div
-                            key={plan.id}
-                            onClick={() => setSelectedPlan(plan.id)}
-                            className={`cursor-pointer rounded-xl p-6 flex flex-col justify-between transition-transform duration-300 transform hover:scale-105 border ${borderBg}`}
-                        >
-                            <div>
-                                <h2 className="text-xl font-semibold mb-2 text-gray-900">{plan.name}</h2>
-                                <p className="text-gray-700 mb-4 text-lg">
-                                    ${plan.price} <span className="text-sm text-gray-500">/{plan.duration}</span>
-                                </p>
-
-                                <ul className="mb-4 space-y-1">
-                                    {plan.features.map((feature, idx) => (
-                                        <li key={idx} className="text-gray-600 text-sm">
-                                            • {feature}
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                        </div>
-                    );
-                })}
+            {/* Grid de Planes */}
+            <div className="grid md:grid-cols-3 gap-8 max-w-6xl w-full">
+                {plans.map((plan) => (
+                    <CardPlan
+                        key={plan.id}
+                        name={plan.name}
+                        price={plan.price}
+                        duration={plan.duration}
+                        features={plan.features}
+                        onSelect={() => setSelectedPlan(plan.id)}
+                        isSelected={selectedPlan === plan.id}
+                        popular={plan.popular}
+                    />
+                ))}
             </div>
 
-            <div className="text-center">
-                <Link
-                    href="/checkout/person"
-                    className="inline-block px-8 py-3 font-semibold text-white bg-black rounded-md hover:bg-gray-800 transition-colors"
-                >
-                    Continuar
-                </Link>
-            </div>
+            {/* Botón Continuar */}
+            <button
+                onClick={handleContinue}
+                className={`mt-12 inline-block rounded-full px-16 py-4 font-bold shadow-lg transition-all duration-300 ease-in-out
+                ${selectedPlan
+                        ? "bg-amber-300 text-black hover:bg-amber-400 hover:scale-105"
+                        : "bg-gray-300 text-gray-600"
+                    }`}
+            >
+                Continuar
+            </button>
         </div>
     );
 }

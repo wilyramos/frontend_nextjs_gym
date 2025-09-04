@@ -2,8 +2,12 @@
 
 
 export default function PersonPage() {
+
+
+    
+
     return (
-        <div className="max-w-3xl mx-auto px-6 py-12">
+        <div className="max-w-xl mx-auto px-6 py-12">
             <h1 className="text-3xl font-bold text-center mb-8 text-gray-900">
                 Información Personal
             </h1>
@@ -38,6 +42,16 @@ export default function PersonPage() {
                         type="tel"
                         name="phone"
                         placeholder="Ej: +51 999 999 999"
+                        className="p-3 rounded-md border border-gray-300"
+                    />
+                </div>
+
+                <div className="flex flex-col">
+                    <label className="mb-2 text-gray-700 font-semibold">DNI / Documento</label>
+                    <input
+                        type="text"
+                        name="dni"
+                        placeholder="Ingresa tu DNI o documento"
                         className="p-3 rounded-md border border-gray-300"
                     />
                 </div>
