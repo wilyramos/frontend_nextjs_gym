@@ -1,6 +1,4 @@
-"use client";
 
-import React from "react";
 
 // Simulación de pagos (esto luego vendrá del backend con fetch/query)
 const payments = [

@@ -27,7 +27,7 @@ export default function Home() {
                         Get Started
                     </Link>
                     <Link
-                        href="/about"
+                        href="/pricing"
                         className="px-6 py-3 rounded-xl border border-gray-400 text-black font-medium hover:bg-gray-100 transition">
                         Learn More
                     </Link>
