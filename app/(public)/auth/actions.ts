@@ -118,7 +118,7 @@ export async function registerAction(prevState: ActionStateType, formData: FormD
     redirect("/profile");
 }
 
-export async function authenticaAction(prevState: ActionStateType, formData: FormData){
+export async function authenticaAction(prevState: ActionStateType, formData: FormData) {
 
     const email = formData.get("email")?.toString();
     const password = formData.get("password")?.toString();
@@ -165,10 +165,15 @@ export async function authenticaAction(prevState: ActionStateType, formData: For
 
     const { role } = data.user;
     console.log("roleee", role)
-    if(role === 'ADMIN') redirect("/admin/dashboard");
-    if(role === 'CLIENT') redirect("/overview");
+    if (role === 'ADMIN') redirect("/admin/dashboard");
+    if (role === 'CLIENT') redirect("/overview");
 
     console.log("Token guardado en cookies", data);
 
     redirect("/profile");
+}
+
+export async function logoutAction() {
+    (await cookies()).delete("access_token_gym");
+    redirect("/auth/login");
 }

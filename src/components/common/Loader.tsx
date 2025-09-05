@@ -16,7 +16,7 @@ export default function Loader({ show = true }: { show?: boolean }) {
                     exit={{ opacity: 0 }}
                 >
                     <motion.div
-                        className="text-gray-800 text-4xl"
+                        className="text-black text-4xl"
                         animate={{
                             y: [0, -20, 0],   // rebote vertical
                             rotate: [0, 10, -10, 0], // pequeño giro para dinamismo

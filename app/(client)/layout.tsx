@@ -3,6 +3,8 @@ import Link from "next/link";
 import { Home, User, CreditCard, Dumbbell, Settings } from "lucide-react";
 import React from "react";
 import { redirect } from 'next/navigation';
+import UserMenu from "@/src/components/common/UserMenu";
+import Logo from "@/src/components/common/Logo";
 
 
 export default async function Layout({ children }: { children: React.ReactNode }) {
@@ -23,9 +25,10 @@ export default async function Layout({ children }: { children: React.ReactNode }
             {/* Header / Top Navigation */}
             <header className="hidden md:block bg-amber-300 text-black shadow-md">
                 <div className="container mx-auto flex items-center justify-between p-4">
-                    <div>
-                        <h1 className="text-2xl font-bold">GoGYM</h1>
+                    <div className="flex gap-4">
+                        <Logo />
                         <p className="text-sm mt-1">Hola, {user?.name || "Usuario"}</p>
+                        <UserMenu />
                     </div>
 
                     <nav className="flex space-x-4">
