@@ -1,9 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useTransition } from "react";
+import { createSubscriptionAction } from "../actions";
+import { toast } from "sonner";
 
 export default function PaymentPage() {
     const [selected, setSelected] = useState("");
+    const [isPending, startTransition] = useTransition();
 
     const methods = [
         { id: "culqi", name: "Culqi" },
@@ -13,10 +16,30 @@ export default function PaymentPage() {
 
     const handleSubmit = () => {
         if (!selected) {
-            alert("Por favor, selecciona un método de pago");
+            toast.error("Por favor, selecciona un método de pago");
             return;
         }
-        alert(`Redirigiendo a ${selected}...`);
+
+        if (selected === "mercadopago") {
+            const subscriptionId = 9; // ⚠️ ID real de la suscripción
+
+            startTransition(async () => {
+                try {
+                    const data = await createSubscriptionAction(subscriptionId);
+
+                    if (data?.mpResponse?.init_point) {
+                        toast.success("Redirigiendo a MercadoPago...");
+                        window.location.href = data.mpResponse.init_point;
+                    } else {
+                        toast.error("No se pudo obtener la URL de pago");
+                    }
+                } catch (error: any) {
+                    toast.error(error.message || "Error con MercadoPago");
+                }
+            });
+        } else {
+            toast.info(`Redirigiendo a ${selected}...`);
+        }
     };
 
     return (
@@ -29,7 +52,10 @@ export default function PaymentPage() {
                     <label
                         key={method.id}
                         className={`flex items-center gap-3 p-3 border rounded-lg cursor-pointer transition 
-              ${selected === method.id ? "border-blue-500 bg-blue-50" : "border-gray-300"}`}
+              ${selected === method.id
+                                ? "border-blue-500 bg-blue-50"
+                                : "border-gray-300"
+                            }`}
                     >
                         <input
                             type="radio"
@@ -46,9 +72,10 @@ export default function PaymentPage() {
 
             <button
                 onClick={handleSubmit}
-                className="mt-6 w-full max-w-sm bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition"
+                disabled={isPending}
+                className="mt-6 w-full max-w-sm bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition disabled:opacity-50"
             >
-                Continuar
+                {isPending ? "Procesando..." : "Continuar"}
             </button>
         </div>
     );
