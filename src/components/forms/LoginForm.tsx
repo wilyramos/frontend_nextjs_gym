@@ -6,10 +6,13 @@ import { useActionState } from "react";
 import { authenticaAction } from "@/app/(public)/auth/actions";
 import Spinner from "../common/Spinner";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 
 
 
 export default function LoginForm() {
+    const searchParams = useSearchParams();
+    const redirectTo = searchParams.get("redirect") || "/profile";
 
 
     const [email, setEmail] = useState("");
@@ -89,6 +92,10 @@ export default function LoginForm() {
                     />
                 </div>
 
+                <div>
+                    <input type="hidden" name="redirectTo" value="/checkout/person" />
+                </div>
+
                 {/* Botones */}
                 <div className="flex justify-between items-center">
 
@@ -104,22 +111,23 @@ export default function LoginForm() {
 
                 <div className="flex justify-between">
                     <Link
-                    href="/auth/forgot-password"
-                    className="text-sm text-gray-600 hover:underline"
-                >
-                    Olvidé mi contraseña
-                </Link>
+                        href="/auth/forgot-password"
+                        className="text-sm text-gray-600 hover:underline"
+                    >
+                        Olvidé mi contraseña
+                    </Link>
 
-                <Link
-                    href="/auth/register"
-                    className="text-sm text-gray-600 hover:underline"
-                >
-                    Crear una cuenta
-                </Link>
+                    <Link
+                        href={
+                            `/auth/register${redirectTo ? `?redirectTo=${redirectTo}` : ""}`
+                        }
+                        className="text-sm text-gray-600 hover:underline"
+                    >
+                        Crear una cuenta
+                    </Link>
                 </div>
             </form>
 
         </div>
-
     );
 }

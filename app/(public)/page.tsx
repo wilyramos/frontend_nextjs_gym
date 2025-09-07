@@ -1,42 +1,68 @@
-
 import ListPricing from "@/src/components/home/ListPricing";
 import Link from "next/link";
+import { FiUsers, FiTrendingUp, FiActivity } from "react-icons/fi";
 
 export default function Home() {
     return (
-        <main className="">
-            <section className="min-h-screen bg-amber-300 flex flex-col justify-center items-center text-white text-center px-4">
+        <main>
+            {/* Hero */}
+            <section className="min-h-screen bg-amber-300 flex flex-col justify-center items-center text-center px-4">
                 <div className="text-center max-w-2xl">
-                {/* Hero Title */}
-                <h1 className="text-5xl md:text-6xl font-bold text-black mb-6 leading-tight">
-                    Transforma tu cuerpo, <br /> Eleva tu mente
-                </h1>
+                    <h1 className="text-5xl md:text-6xl font-bold text-black mb-6 leading-tight">
+                        Transforma tu cuerpo, <br /> Eleva tu mente
+                    </h1>
 
-                {/* Subtitle */}
-                <p className="text-lg md:text-xl text-gray-600 mb-8">
-                    Únete a nuestra comunidad y alcanza tus objetivos de fitness con planes personalizados y seguimiento experto.
-                </p>
+                    <p className="text-lg md:text-xl text-gray-700 mb-8">
+                        Únete a nuestra comunidad y alcanza tus objetivos de fitness con
+                        planes personalizados y seguimiento experto.
+                    </p>
 
-                {/* CTA Buttons */}
-                <div className="flex gap-4 justify-center">
-                    <Link
-                        href="/auth/login"
-                        className="px-6 py-3 rounded-xl bg-black text-white font-medium shadow-md hover:bg-gray-900 transition"
-                    >
-                        Comenzar
-                    </Link>
-                    <Link
-                        href="/pricing"
-                        className="px-6 py-3 rounded-xl border border-gray-400 text-black font-medium hover:bg-gray-100 transition">
-                        Más información
-                    </Link>
-
+                    <div className="flex gap-4 justify-center">
+                        <Link
+                            href="/auth/login"
+                            className="px-6 py-3 rounded-xl bg-black text-white font-medium shadow-md hover:bg-gray-900 transition"
+                        >
+                            Comenzar
+                        </Link>
+                        <Link
+                            href="/pricing"
+                            className="px-6 py-3 rounded-xl border border-gray-400 text-black font-medium hover:bg-gray-100 transition"
+                        >
+                            Más información
+                        </Link>
+                    </div>
                 </div>
-            </div>
             </section>
 
+            {/* Precios */}
             <section>
                 <ListPricing />
+            </section>
+
+            {/* Sección minimalista */}
+            <section className="py-16 bg-white">
+                <div className="max-w-5xl mx-auto px-6 text-center">
+                    <h2 className="text-3xl font-bold text-black mb-12">
+                        Lo que encontrarás en nuestro gym
+                    </h2>
+
+                    <div className="grid md:grid-cols-3 gap-8">
+                        <div className="flex flex-col items-center">
+                            <FiUsers className="text-4xl text-amber-300 mb-3" />
+                            <p className="text-gray-700">Comunidad motivadora</p>
+                        </div>
+
+                        <div className="flex flex-col items-center">
+                            <FiTrendingUp className="text-4xl text-amber-300 mb-3" />
+                            <p className="text-gray-700">Planes efectivos</p>
+                        </div>
+
+                        <div className="flex flex-col items-center">
+                            <FiActivity className="text-4xl text-amber-300 mb-3" />
+                            <p className="text-gray-700">Entrenamiento dinámico</p>
+                        </div>
+                    </div>
+                </div>
             </section>
         </main>
     );

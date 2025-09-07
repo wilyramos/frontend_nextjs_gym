@@ -14,7 +14,7 @@ export default async function MembershipsPage() {
                 <h1 className="text-3xl font-bold text-black mb-2">Memberships</h1>
                 <p className="text-gray-500 mb-6">No tienes membresías activas.</p>
                 <Link
-                    href="/dashboard/change-plan"
+                    href="/checkout/choose"
                     className="px-4 py-2 rounded-lg bg-amber-300 text-black font-medium hover:bg-amber-300/80 transition"
                 >
                     Adquirir membresía
