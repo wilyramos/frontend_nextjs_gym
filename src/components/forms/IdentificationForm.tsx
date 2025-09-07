@@ -1,43 +1,41 @@
 "use client";
 
 import { EditUserAction } from "@/app/(public)/checkout/person/actions";
-import type { TUser } from "@/src/types"
-import { useRouter } from 'next/navigation'
+import type { TUser } from "@/src/types";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useActionState, useEffect } from "react";
 import { toast } from "sonner";
 
-
 type Props = {
     user: TUser | null;
-}
+};
 
 export default function IdentificationForm({ user }: Props) {
-
     const router = useRouter();
+    const searchParams = useSearchParams();
+    const plan = searchParams.get("plan"); // 👈 aquí obtienes el valor del query param
+
     const [state, dispatch] = useActionState(EditUserAction, {
         errors: [],
         success: "",
-    })
-
-    console.log("stta", state)
+    });
 
     useEffect(() => {
         if (state.success) {
             toast.success(state.success);
             console.log("User updated successfully, redirecting...");
-            router.push('/checkout/payment');
+            router.push(`/checkout/payment?plan=${plan}`); // 👈 rediriges con el mismo plan
         }
-    }, [state, router]);
-
+    }, [state, router, plan]);
 
     return (
         <div>
-            <form
-                action={dispatch}
-                className="flex flex-col gap-4">
+            <form action={dispatch} className="flex flex-col gap-4">
                 {/* Nombre */}
                 <div className="flex flex-col">
-                    <label className="mb-2 text-gray-700 font-semibold">Nombre completo</label>
+                    <label className="mb-2 text-gray-700 font-semibold">
+                        Nombre completo
+                    </label>
                     <input
                         type="text"
                         name="name"
@@ -49,7 +47,9 @@ export default function IdentificationForm({ user }: Props) {
 
                 {/* Correo */}
                 <div className="flex flex-col">
-                    <label className="mb-2 text-gray-700 font-semibold">Correo electrónico</label>
+                    <label className="mb-2 text-gray-700 font-semibold">
+                        Correo electrónico
+                    </label>
                     <input
                         type="email"
                         name="email"
@@ -58,7 +58,6 @@ export default function IdentificationForm({ user }: Props) {
                         defaultValue={user?.email || ""}
                         readOnly
                     />
-
                 </div>
 
                 {/* Teléfono */}
@@ -74,7 +73,9 @@ export default function IdentificationForm({ user }: Props) {
                 </div>
 
                 <div className="flex flex-col">
-                    <label className="mb-2 text-gray-700 font-semibold">DNI / Documento</label>
+                    <label className="mb-2 text-gray-700 font-semibold">
+                        DNI / Documento
+                    </label>
                     <input
                         type="text"
                         name="document"
@@ -93,5 +94,5 @@ export default function IdentificationForm({ user }: Props) {
                 </button>
             </form>
         </div>
-    )
+    );
 }

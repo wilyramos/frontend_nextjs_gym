@@ -3,7 +3,6 @@
 import { useState } from "react";
 import plans from "@/src/data/subscriptionPlans.json";
 import CardPlan from "@/src/components/checkout/CardPlan";
-import Link from "next/link";
 import { toast } from "sonner";
 
 export default function ChoosePage() {

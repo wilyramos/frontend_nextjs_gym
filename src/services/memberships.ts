@@ -1,8 +1,6 @@
+import "server-only";
+
 import getToken from "../auth/token";
-import type { TPaginatedUsers } from "../types";
-
-
-
 
 
 export async function getMembershipData() {

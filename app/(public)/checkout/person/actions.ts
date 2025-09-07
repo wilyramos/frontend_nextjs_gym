@@ -2,10 +2,8 @@
 
 
 import getToken from "@/src/auth/token";
-import { registerSchema, loginSchema, UserUpdateSchema } from "@/src/types";
+import { UserUpdateSchema } from "@/src/types";
 import { revalidatePath } from "next/cache";
-import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
 
 
 

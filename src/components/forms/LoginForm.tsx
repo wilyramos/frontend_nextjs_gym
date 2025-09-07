@@ -6,7 +6,6 @@ import { useActionState } from "react";
 import { authenticaAction } from "@/app/(public)/auth/actions";
 import Spinner from "../common/Spinner";
 import Link from "next/link";
-import { CredentialResponse } from '@react-oauth/google';
 
 
 
@@ -31,14 +30,14 @@ export default function LoginForm() {
         }
     }, [state]);
 
-    const handleGoogleLoginSuccess = ({ credential }: CredentialResponse) => {
-        if (!credential) return toast.error("Token de Google no recibido");
+    // const handleGoogleLoginSuccess = ({ credential }: CredentialResponse) => {
+    //     if (!credential) return toast.error("Token de Google no recibido");
 
-        startTransition(async () => {
-            // const result = await googleLoginAction({ credential, redirectTo });
-            // if (result?.error) toast.error(result.error);
-        });
-    };
+    //     startTransition(async () => {
+    //         // const result = await googleLoginAction({ credential, redirectTo });
+    //         // if (result?.error) toast.error(result.error);
+    //     });
+    // };
 
     return (
 

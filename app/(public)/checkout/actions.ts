@@ -26,7 +26,7 @@ export async function createSubscriptionAction(subscriptionId: number) {
         }
 
         return await res.json();
-    } catch (error: any) {
+    } catch (error) {
         console.error("❌ Error en createSubscriptionAction:", error);
         throw error;
     }

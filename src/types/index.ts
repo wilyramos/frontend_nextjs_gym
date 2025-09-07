@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { string, z } from "zod";
 
 
 // **** AUTH **** 
@@ -104,6 +104,7 @@ export const SubscriptionPlanEnum = z.enum([
 ]);
 
 export const SubscriptionStatusEnum = z.enum([
+    "PENDING",
     "ACTIVE",
     "PAST_DUE",
     "CANCELED",
@@ -131,12 +132,12 @@ export const MembershipSchema = z.object({
 // Esquema principal de Subscription
 export const SubscriptionSchema = z.object({
     id: z.number().optional(),
-    userId: z.number().optional(), // puedes usar UserSchema si quieres anidar
+    userId: z.number().optional(),
     plan: SubscriptionPlanEnum,
     status: SubscriptionStatusEnum,
-    startDate: z.date().optional(),
-    endDate: z.date().nullable().optional(),
-    externalId: z.string().nullable().optional(),
+    startDate: string().optional(),
+    endDate: string().nullable().optional(),
+    externalId: string().nullable().optional(),
     payments: z.array(PaymentSchema).optional(),
     membership: MembershipSchema.optional(),
 });

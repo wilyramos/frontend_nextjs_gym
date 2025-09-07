@@ -1,82 +1,33 @@
-"use client";
+import GatewaySelector from "@/src/components/checkout/GatewaySelector";
+import { createSubscription } from "./actions";
 
-import { useState, useTransition } from "react";
-import { createSubscriptionAction } from "../actions";
-import { toast } from "sonner";
+type SearchParams = Promise<{
+    plan: string;
+}>;
 
-export default function PaymentPage() {
-    const [selected, setSelected] = useState("");
-    const [isPending, startTransition] = useTransition();
+export default async function PaymentPage({ searchParams }: { searchParams: SearchParams }) {
+    const { plan } = await searchParams;
 
-    const methods = [
-        { id: "culqi", name: "Culqi" },
-        { id: "mercadopago", name: "Mercado Pago" },
-        { id: "izipay", name: "Izipay" },
-    ];
+    console.log("PaymentPage params:", searchParams);
 
-    const handleSubmit = () => {
-        if (!selected) {
-            toast.error("Por favor, selecciona un método de pago");
-            return;
-        }
+    // Crear la suscripción en el servidor
+    const subscription = await createSubscription({ plan });
 
-        if (selected === "mercadopago") {
-            const subscriptionId = 9; // ⚠️ ID real de la suscripción
-
-            startTransition(async () => {
-                try {
-                    const data = await createSubscriptionAction(subscriptionId);
-
-                    if (data?.mpResponse?.init_point) {
-                        toast.success("Redirigiendo a MercadoPago...");
-                        window.location.href = data.mpResponse.init_point;
-                    } else {
-                        toast.error("No se pudo obtener la URL de pago");
-                    }
-                } catch (error: any) {
-                    toast.error(error.message || "Error con MercadoPago");
-                }
-            });
-        } else {
-            toast.info(`Redirigiendo a ${selected}...`);
-        }
-    };
+    if (!subscription) {
+        return (
+            <div className="p-6 text-center">
+                <h1 className="text-xl font-bold mb-4">Error</h1>
+                <p>No se pudo crear la suscripción. Intenta de nuevo.</p>
+            </div>
+        );
+    }
 
     return (
-        <div className="flex flex-col items-center justify-center p-8">
-            <h1 className="text-2xl font-bold">Pago</h1>
-            <p className="text-gray-600">Selecciona tu método de pago</p>
+        <div className="p-6">
+            <h1 className="text-2xl font-bold mb-6 text-center">Selecciona tu método de pago</h1>
 
-            <div className="mt-6 space-y-4 w-full max-w-sm">
-                {methods.map((method) => (
-                    <label
-                        key={method.id}
-                        className={`flex items-center gap-3 p-3 border rounded-lg cursor-pointer transition 
-              ${selected === method.id
-                                ? "border-blue-500 bg-blue-50"
-                                : "border-gray-300"
-                            }`}
-                    >
-                        <input
-                            type="radio"
-                            name="payment"
-                            value={method.id}
-                            checked={selected === method.id}
-                            onChange={() => setSelected(method.id)}
-                            className="h-4 w-4 text-blue-600"
-                        />
-                        <span className="text-gray-700">{method.name}</span>
-                    </label>
-                ))}
-            </div>
-
-            <button
-                onClick={handleSubmit}
-                disabled={isPending}
-                className="mt-6 w-full max-w-sm bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition disabled:opacity-50"
-            >
-                {isPending ? "Procesando..." : "Continuar"}
-            </button>
+            {/* Solo mostramos el selector de pasarela */}
+            {subscription.id && <GatewaySelector subscriptionId={subscription.id} />}
         </div>
     );
 }
