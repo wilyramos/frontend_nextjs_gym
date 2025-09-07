@@ -3,6 +3,7 @@ import Link from "next/link";
 import AuthSheet from "../sheets/AuthSheet";
 import NavbarClient from "./NavbarClient";
 import getToken from "@/src/auth/token";
+import Logo from "./Logo";
 
 export default async function Navbar() {
     const token = await getToken();
@@ -24,9 +25,9 @@ export default async function Navbar() {
                 {/* Logo */}
                 <Link
                     href="/"
-                    className="text-2xl font-extrabold text-gray-100 bg-gray-900 px-2"
+                    className="text-2xl font-extrabold text-black-100 px-2 bg-amber-300 rounded"
                 >
-                    Go<span className="text-amber-300">GYM</span>
+                    <Logo />
                 </Link>
 
                 {/* Desktop Menu */}

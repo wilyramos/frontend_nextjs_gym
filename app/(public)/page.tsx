@@ -1,3 +1,4 @@
+import BackgroundHome from "@/src/components/home/BackgroundHome";
 import GymBenefitsCarousel from "@/src/components/home/GymBenefitsCarousel";
 import ListPricing from "@/src/components/home/ListPricing";
 import Footer from "@/src/components/layout/footer";
@@ -75,6 +76,10 @@ export default function Home() {
                         </div>
                     </div>
                 </div>
+            </section>
+
+            <section >
+                <BackgroundHome />
             </section>
 
             <section>
