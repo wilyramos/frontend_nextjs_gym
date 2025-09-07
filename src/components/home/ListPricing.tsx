@@ -51,7 +51,7 @@ export default function ListPricing() {
                             </div>
 
                             <Link
-                                href={`/checkout/payment?plan=${plan.id}`}
+                                href={`/checkout/choose`}
                                 className={`mt-4 mb-4 w-full py-2 rounded-lg font-bold text-white transition-colors flex justify-center items-center 
                   ${plan.popular
                                         ? "bg-amber-300 hover:bg-amber-400 text-black"
