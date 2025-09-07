@@ -4,9 +4,9 @@ import subscriptionPlans from "@/src/data/subscriptionPlans.json";
 
 export default function ListPricing() {
     return (
-        <div className="bg-white min-h-screen py-16 px-6">
+        <div className="bg-white py-5 px-6">
             <h1 className="text-4xl font-bold text-center text-black mb-12">
-                Nuestros Planes
+                {/* Nuestros Planes */}
             </h1>
 
             <div className="flex flex-col md:flex-row justify-center items-stretch gap-6 max-w-7xl mx-auto">
@@ -15,13 +15,13 @@ export default function ListPricing() {
                         key={plan.id}
                         className={`flex-1 border rounded-xl overflow-hidden shadow-md transition-transform duration-300 hover:scale-105
               ${plan.popular
-                                ? "border-amber-300 bg-white md:-translate-y-3"
+                                ? "border-amber-500 bg-white md:-translate-y-3"
                                 : "border-gray-200 bg-white"
                             }`}
                     >
                         {/* Badge */}
                         {plan.popular && (
-                            <div className="bg-amber-300 text-black text-sm font-bold text-center py-1">
+                            <div className="bg-amber-500 text-black text-sm font-bold text-center py-1">
                                 Más Popular
                             </div>
                         )}
@@ -54,7 +54,7 @@ export default function ListPricing() {
                                 href={`/checkout/choose`}
                                 className={`mt-4 mb-4 w-full py-2 rounded-lg font-bold text-white transition-colors flex justify-center items-center 
                   ${plan.popular
-                                        ? "bg-amber-300 hover:bg-amber-400 text-black"
+                                        ? "bg-amber-500 hover:bg-amber-600 text-black"
                                         : "bg-black hover:bg-gray-900"
                                     }`}
                             >

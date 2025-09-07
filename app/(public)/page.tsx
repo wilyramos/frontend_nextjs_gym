@@ -1,4 +1,6 @@
+import GymBenefitsCarousel from "@/src/components/home/GymBenefitsCarousel";
 import ListPricing from "@/src/components/home/ListPricing";
+import Footer from "@/src/components/layout/footer";
 import Link from "next/link";
 import { FiUsers, FiTrendingUp, FiActivity } from "react-icons/fi";
 
@@ -35,12 +37,22 @@ export default function Home() {
             </section>
 
             {/* Precios */}
-            <section>
+            <section className="flex flex-col justify-center items-center text-center px-4 py-10">
+            <h2 className="text-4xl font-bold text-center text-black "> 
+                Membresias
+            </h2>
+                <p className="text-gray-700">
+                    Te ofrecemos planes flexibles y asequibles para que puedas elegir
+                </p>
                 <ListPricing />
             </section>
 
+            <section>
+                <GymBenefitsCarousel />
+            </section>
+
             {/* Sección minimalista */}
-            <section className="py-16 bg-white">
+            <section className="py-6 bg-amber-300">
                 <div className="max-w-5xl mx-auto px-6 text-center">
                     <h2 className="text-3xl font-bold text-black mb-12">
                         Lo que encontrarás en nuestro gym
@@ -48,21 +60,25 @@ export default function Home() {
 
                     <div className="grid md:grid-cols-3 gap-8">
                         <div className="flex flex-col items-center">
-                            <FiUsers className="text-4xl text-amber-300 mb-3" />
+                            <FiUsers className="text-4xl text-black mb-3" />
                             <p className="text-gray-700">Comunidad motivadora</p>
                         </div>
 
                         <div className="flex flex-col items-center">
-                            <FiTrendingUp className="text-4xl text-amber-300 mb-3" />
+                            <FiTrendingUp className="text-4xl text-black mb-3" />
                             <p className="text-gray-700">Planes efectivos</p>
                         </div>
 
                         <div className="flex flex-col items-center">
-                            <FiActivity className="text-4xl text-amber-300 mb-3" />
+                            <FiActivity className="text-4xl text-black mb-3" />
                             <p className="text-gray-700">Entrenamiento dinámico</p>
                         </div>
                     </div>
                 </div>
+            </section>
+
+            <section>
+                <Footer />
             </section>
         </main>
     );
