@@ -8,7 +8,7 @@ export default async function PersonPage() {
 
     const currentUser = await getCurrentUser();
     if(!currentUser) {
-        redirect("/auth/login?redirectTo=/checkout/person");
+        redirect("/auth/register?redirectTo=/checkout/person");
     }
 
     return (
