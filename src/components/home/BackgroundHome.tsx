@@ -9,7 +9,7 @@ export default function BackgroundHome() {
             <div
                 className="absolute inset-0 bg-cover bg-center bg-fixed"
                 style={{
-                    backgroundImage: "url('/bg.jpg')",
+                    backgroundImage: "url('/IMG_8728.JPEG')",
                 }}
             />
 

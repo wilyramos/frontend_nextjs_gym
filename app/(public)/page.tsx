@@ -9,13 +9,24 @@ export default function Home() {
     return (
         <main>
             {/* Hero */}
-            <section className="min-h-screen bg-amber-300 flex flex-col justify-center items-center text-center px-4">
-                <div className="text-center max-w-2xl">
-                    <h1 className="text-5xl md:text-6xl font-bold text-black mb-6 leading-tight">
+
+         
+
+            <section className="min-h-screen flex flex-col justify-center items-center text-center px-4">
+                <div
+                    className="absolute inset-0 bg-cover bg-center bg-fixed"
+                    style={{
+                        backgroundImage: "url('/bg.jpg')",
+                    }}
+                />
+                <div className="absolute inset-0 bg-black/80" />
+
+                <div className="relative text-center max-w-2xl">
+                    <h1 className="text-5xl md:text-6xl font-bold text-amber-300 mb-6 leading-tight">
                         Transforma tu cuerpo, <br /> Eleva tu mente
                     </h1>
 
-                    <p className="text-lg md:text-xl text-gray-700 mb-8">
+                    <p className="text-lg md:text-xl text-gray-200 mb-8">
                         Únete a nuestra comunidad y alcanza tus objetivos de fitness con
                         planes personalizados y seguimiento experto.
                     </p>
@@ -23,13 +34,13 @@ export default function Home() {
                     <div className="flex gap-4 justify-center">
                         <Link
                             href="/auth/login"
-                            className="px-6 py-3 rounded-xl bg-black text-white font-medium shadow-md hover:bg-gray-900 transition"
+                            className="px-6 py-3 rounded-xl bg-amber-300 text-black font-medium hover:bg-amber-400 transition"
                         >
                             Comenzar
                         </Link>
                         <Link
                             href="/pricing"
-                            className="px-6 py-3 rounded-xl border border-gray-400 text-black font-medium hover:bg-gray-100 transition"
+                            className="px-6 py-3 rounded-xl border border-amber-300 text-amber-300 font-medium hover:bg-amber-300 hover:text-black transition"
                         >
                             Más información
                         </Link>
@@ -39,9 +50,9 @@ export default function Home() {
 
             {/* Precios */}
             <section className="flex flex-col justify-center items-center text-center px-4 py-10">
-            <h2 className="text-4xl font-bold text-center text-black "> 
-                Membresias
-            </h2>
+                <h2 className="text-4xl font-bold text-center text-black ">
+                    Membresias
+                </h2>
                 <p className="text-gray-700">
                     Te ofrecemos planes flexibles y asequibles para que puedas elegir
                 </p>

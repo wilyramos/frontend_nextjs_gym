@@ -9,7 +9,7 @@ export default function Logo({ className = "" }: LogoProps) {
 
             {/* Texto moderno */}
             <span className="text-2xl font-extrabold text-black tracking-tight">
-                <span className="text-white">Go</span>GYM
+                <span className="">Go</span>GYM
             </span>
         </div>
     );

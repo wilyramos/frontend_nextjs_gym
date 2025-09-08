@@ -50,20 +50,18 @@ export default function ListPricing() {
                                 </ul>
                             </div>
 
-                            <Link
-                                href={`/checkout/choose`}
-                                className={`mt-4 mb-4 w-full py-2 rounded-lg font-bold text-white transition-colors flex justify-center items-center 
-                  ${plan.popular
-                                        ? "bg-amber-500 hover:bg-amber-600 text-black"
-                                        : "bg-black hover:bg-gray-900"
-                                    }`}
-                            >
-                                Inscribirme
-                            </Link>
+
                         </div>
                     </div>
                 ))}
             </div>
+
+            <Link
+                href="/checkout/choose"
+                className="mt-10 inline-block bg-amber-300 text-black font-bold py-3 px-15 rounded-lg hover:bg-amber-400 transition-colors mx-auto"
+            >
+                Inscribirme
+            </Link>
         </div>
     );
 }

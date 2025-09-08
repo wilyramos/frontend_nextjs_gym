@@ -10,10 +10,10 @@ export default async function Navbar() {
 
     const desktopLinks = (
         <>
-            <Link href="/" className="text-gray-700 hover:text-gray-900 transition-colors">
+            <Link href="/" className="text-gray-400 hover:text-gray-900 transition-colors">
                 Inicio
             </Link>
-            <Link href="/pricing" className="text-gray-700 hover:text-gray-900 transition-colors">
+            <Link href="/pricing" className="text-gray-400 hover:text-gray-900 transition-colors">
                 Planes
             </Link>
         </>
