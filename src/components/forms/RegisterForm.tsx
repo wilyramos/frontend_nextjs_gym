@@ -6,9 +6,15 @@ import { toast } from "sonner";
 import { registerAction } from "@/app/(public)/auth/actions";
 import Spinner from "../common/Spinner";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 
 
 export default function RegisterForm() {
+
+    const searchParams = useSearchParams();
+    const redirectTo = searchParams.get("redirectTo");
+
+
     const [name, setName] = useState("");
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
@@ -88,7 +94,9 @@ export default function RegisterForm() {
             <div>
 
                 <Link
-                    href="/auth/login"
+                    href={
+                        `/auth/login${redirectTo ? `?redirectTo=${redirectTo}` : ""}`
+                    }
                     className="text-sm text-gray-600 hover:underline"
                 >
                     ¿Ya tienes una cuenta? Inicia sesión

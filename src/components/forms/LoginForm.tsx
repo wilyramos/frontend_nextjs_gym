@@ -12,7 +12,7 @@ import { useSearchParams } from "next/navigation";
 
 export default function LoginForm() {
     const searchParams = useSearchParams();
-    const redirectTo = searchParams.get("redirect") || "/profile";
+    const redirectTo = searchParams.get("redirectTo")?.toString();
 
 
     const [email, setEmail] = useState("");
@@ -93,7 +93,7 @@ export default function LoginForm() {
                 </div>
 
                 <div>
-                    <input type="hidden" name="redirectTo" value="/checkout/person" />
+                    <input type="hidden" name="redirectTo" value={redirectTo} />
                 </div>
 
                 {/* Botones */}

@@ -4,11 +4,11 @@ import { redirect } from "next/navigation";
 
 
 export default async function PersonPage() {
-
+    
 
     const currentUser = await getCurrentUser();
     if(!currentUser) {
-        redirect("/auth/register?redirectTo=/checkout/person");
+        redirect("/auth/register?redirectTo=/checkout/choose");
     }
 
     return (

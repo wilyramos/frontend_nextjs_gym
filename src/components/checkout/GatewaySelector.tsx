@@ -28,6 +28,7 @@ export default function GatewaySelector({ subscriptionId }: GatewaySelectorProps
             startTransition(async () => {
                 try {
                     const data = await createSubscriptionAction(subscriptionId);
+                    console.log("Data recibida de createSubscriptionAction:", data);
 
                     const initPoint = data?.mpResponse?.init_point;
                     if (initPoint) {
@@ -36,8 +37,10 @@ export default function GatewaySelector({ subscriptionId }: GatewaySelectorProps
                     } else {
                         toast.error("No se pudo obtener la URL de pago");
                     }
-                } catch (err: unknown) {
-                    toast.error(err instanceof Error ? err.message : "Error con MercadoPago");
+                } catch (err) {
+                    toast.error(
+                        err instanceof Error ? err.message : "Error con MercadoPago"
+                    );
                 }
             });
         } else {
@@ -46,18 +49,17 @@ export default function GatewaySelector({ subscriptionId }: GatewaySelectorProps
     };
 
     return (
-        <div className="flex flex-col items-center justify-center p-8">
-            <h1 className="text-2xl font-bold">Pago</h1>
-            <p className="text-gray-600">Selecciona tu método de pago</p>
+        <div className="flex flex-col items-center justify-center p-8 ">
+        
 
-            <div className="mt-6 space-y-4 w-full max-w-sm">
+            <div className="space-y-8 w-full max-w-sm">
                 {methods.map((method) => (
                     <label
                         key={method.id}
                         className={`flex items-center gap-3 p-3 border rounded-lg transition 
-              ${selected === method.id ? "border-blue-500 bg-blue-50" : "border-gray-300"}
-              ${method.disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}
-            `}
+                            ${selected === method.id ? "border-black bg-gray-100" : "border-gray-300"} 
+                            ${method.disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}
+                        `}
                     >
                         <input
                             type="radio"
@@ -66,11 +68,11 @@ export default function GatewaySelector({ subscriptionId }: GatewaySelectorProps
                             checked={selected === method.id}
                             onChange={() => !method.disabled && setSelected(method.id)}
                             disabled={method.disabled}
-                            className="h-4 w-4 text-blue-600"
+                            className="h-4 w-4 accent-black"
                         />
-                        <span className="text-gray-700">{method.name}</span>
+                        <span className="text-gray-900">{method.name}</span>
                         {method.disabled && (
-                            <span className="ml-auto text-xs text-gray-400">(Próximamente)</span>
+                            <span className="ml-auto text-xs text-gray-500">(Próximamente)</span>
                         )}
                     </label>
                 ))}
@@ -79,7 +81,7 @@ export default function GatewaySelector({ subscriptionId }: GatewaySelectorProps
             <button
                 onClick={handleSubmit}
                 disabled={isPending || !selected}
-                className="mt-6 w-full max-w-sm bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition disabled:opacity-50"
+                className="mt-6 w-full max-w-sm bg-black text-white py-2 px-4 rounded-lg hover:bg-gray-800 transition disabled:opacity-50"
             >
                 {isPending ? "Procesando..." : "Pagar suscripción"}
             </button>

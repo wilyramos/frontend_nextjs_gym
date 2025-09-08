@@ -20,10 +20,12 @@ export async function createSubscriptionAction(subscriptionId: number) {
             }
         );
 
+        console.log("Respuesta de fetch en createSubscriptionAction:", res);
         if (!res.ok) {
             const error = await res.json();
             throw new Error(error.message || "Error creando suscripción");
         }
+        console.log("Respuesta de createSubscriptionAction:", res);
 
         return await res.json();
     } catch (error) {

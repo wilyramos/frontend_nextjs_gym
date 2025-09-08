@@ -124,7 +124,7 @@ export async function authenticaAction(prevState: ActionStateType, formData: For
     const password = formData.get("password")?.toString();
 
 
-    const redirectTo = formData.get("redirectTo")?.toString() || "/profile";
+    const redirectTo = formData.get("redirectTo")?.toString() || "/overview";
     const parseResult = loginSchema.safeParse({ email, password });
 
     if (!parseResult.success) {
@@ -168,11 +168,12 @@ export async function authenticaAction(prevState: ActionStateType, formData: For
     const { role } = data.user;
     console.log("roleee", role)
     if (role === 'ADMIN') redirect("/admin/dashboard");
-    if (role === 'CLIENT') redirect("/overview");
+    // if (role === 'CLIENT') redirect("/overview");
 
     // console.log("Token guardado en cookies", data);
 
     redirect(redirectTo);
+
 }
 
 export async function logoutAction() {
