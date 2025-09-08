@@ -58,7 +58,7 @@ export default function ListPricing() {
 
             <Link
                 href="/checkout/choose"
-                className="mt-10 inline-block bg-amber-300 text-black font-bold py-3 px-15 rounded-lg hover:bg-amber-400 transition-colors mx-auto"
+                className="mt-10 inline-block bg-amber-300 text-black font-bold py-3 px-20 rounded-lg hover:bg-amber-400 transition-colors mx-auto"
             >
                 Inscribirme
             </Link>

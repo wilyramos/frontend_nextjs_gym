@@ -10,6 +10,7 @@ export default async function PaymentPage({ searchParams }: { searchParams: Sear
 
     // Crear la suscripción en el servidor
     const subscription = await createSubscription({ plan });
+    console.log("Suscripción creada en PaymentPage:", subscription);
 
     if (!subscription) {
         return (

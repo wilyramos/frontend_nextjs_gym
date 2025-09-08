@@ -47,7 +47,7 @@ export default function AuthSheet() {
         <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger asChild>
                 <button
-                    className="flex items-center gap-2 px-4 py-2  border border-black rounded-lg text-sm hover:bg-amber-400 hover:text-gray-900 cursor-pointer"
+                    className="text-white flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg text-sm hover:bg-amber-400 hover:text-gray-900 cursor-pointer"
                 >
                     <FiUser className="text-base" />
                     {/* Iniciar sesión / registrarse */}

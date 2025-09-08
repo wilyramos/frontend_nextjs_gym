@@ -31,8 +31,6 @@ export async function createSubscription(
         }
 
         const json = await res.json();
-
-        // ✅ Validar con Zod que cumple el esquema
         const parsed = SubscriptionSchema.safeParse(json);
 
         if (!parsed.success) {
