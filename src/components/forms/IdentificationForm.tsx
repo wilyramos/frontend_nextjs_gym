@@ -23,8 +23,7 @@ export default function IdentificationForm({ user }: Props) {
     useEffect(() => {
         if (state.success) {
             toast.success(state.success);
-            console.log("User updated successfully, redirecting...");
-            router.push(`/checkout/payment?plan=${plan}`); // 👈 rediriges con el mismo plan
+            router.push(`/checkout/payment?plan=${plan}`); // Rediriges con el mismo plan
         }
     }, [state, router, plan]);
 

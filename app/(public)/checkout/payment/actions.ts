@@ -15,7 +15,7 @@ export async function createSubscription(
     try {
         const token = await getToken();
         const url = `${process.env.API_URL}/subscriptions`;
-
+        console.log("Creating subscription with params:", JSON.stringify(params));
         const res = await fetch(url, {
             method: "POST",
             headers: {
@@ -24,6 +24,7 @@ export async function createSubscription(
             },
             body: JSON.stringify(params),
         });
+
 
         if (!res.ok) {
             console.error("API error:", await res.text());

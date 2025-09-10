@@ -24,19 +24,19 @@ export default async function Layout({ children }: { children: React.ReactNode }
         <div className="min-h-screen flex flex-col bg-white">
             {/* Header / Top Navigation */}
             <header className="hidden md:block bg-amber-300 text-black shadow-md">
-                <div className="container mx-auto flex items-center justify-between p-4">
+                <div className="container mx-auto flex items-center justify-between max-w-5xl px-2">
                     <div className="flex gap-4">
                         <Logo />
                         <p className="text-sm mt-1">Hola, {user?.name || "Usuario"}</p>
                         <UserMenu />
                     </div>
 
-                    <nav className="flex space-x-4">
+                    <nav className="flex space-x-2">
                         {navItems.map((item) => (
                             <Link
                                 key={item.name}
                                 href={item.href}
-                                className="flex items-center gap-1 px-3 py-2 rounded hover:bg-amber-200 transition"
+                                className="flex items-center gap-1 px-3 py-2 rounded hover:bg-amber-200 transition text-xs font-medium" 
                             >
                                 {item.icon}
                                 <span>{item.name}</span>

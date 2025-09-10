@@ -53,7 +53,7 @@ export default function Footer() {
             </div>
 
             <div className="border-t border-gray-700 mt-8 pt-6 text-center text-sm text-gray-500">
-                &copy; {new Date().getFullYear()} GymFit. Todos los derechos reservados.
+                &copy; {new Date().getFullYear()} GymFit. Todos los derechos reservados. <span className="text-gray-400">Developed by Wily Ramos.</span>
             </div>
         </footer>
     );

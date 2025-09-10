@@ -9,7 +9,6 @@ export async function createSubscriptionAction(subscriptionId: number) {
         const token = await getToken();
 
         const url = `${process.env.API_URL}/payments/${subscriptionId}/subscription`;
-        console.log("la url y idd", url, subscriptionId);
         const res = await fetch(url, {
             method: "POST",
             headers: {
