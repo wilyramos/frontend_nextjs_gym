@@ -18,7 +18,7 @@ export default function ChoosePage() {
     };
 
     return (
-        <div className="py-16 px-6 flex flex-col items-center">
+        <div className="py-10 px-6 flex flex-col items-center">
             {/* Título */}
             <h1 className="text-4xl font-extrabold text-center text-black mb-6">
                 Nuestros Planes

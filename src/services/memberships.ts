@@ -1,6 +1,7 @@
 import "server-only";
 
 import getToken from "../auth/token";
+import { MembershipArraySchema } from "@/src/types";
 
 
 export async function getMembershipData() {
@@ -16,13 +17,13 @@ export async function getMembershipData() {
             cache: "no-store",
         });
         if (!response.ok) {
-            throw new Error("Failed to fetch membership data");
+            return [];
         }
         const data = await response.json();
         console.log("Fetched membership data:", data);
-        return data;
+        return MembershipArraySchema.parse(data);
     } catch (error) {
         console.error("Error fetching membership data:", error);
-        throw error;
+        return [];
     }
 }

@@ -8,7 +8,7 @@ export async function createSubscriptionAction(subscriptionId: number) {
         // TODO: Obtener email del usuario autenticado si es necesario
         const token = await getToken();
 
-        const url = `${process.env.API_URL}/payments/${subscriptionId}/subscription`;
+        const url = `${process.env.API_URL}/payments/${subscriptionId}/activate`;
         const res = await fetch(url, {
             method: "POST",
             headers: {

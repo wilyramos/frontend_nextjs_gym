@@ -10,10 +10,10 @@ export default async function Navbar() {
 
     const desktopLinks = (
         <>
-            <Link href="/" className="text-gray-400 hover:text-gray-500 transition-colors">
+            <Link href="/" className="">
                 Inicio
             </Link>
-            <Link href="/pricing" className="text-gray-400 hover:text-gray-500 transition-colors">
+            <Link href="/pricing" className="">
                 Planes
             </Link>
         </>
@@ -25,7 +25,7 @@ export default async function Navbar() {
                 {/* Logo */}
                 <Link
                     href="/"
-                    className="text-2xl font-extrabold text-black-100 px-2 bg-amber-300 rounded"
+                    className="text-2xl font-extrabold text-black-100 px-2 bg-amber-300 tracking-tight "
                 >
                     <Logo />
                 </Link>
@@ -35,7 +35,7 @@ export default async function Navbar() {
                     {desktopLinks}
                     <div className="flex ">
                         {/* si hay token mostramos AuthSheet, si no login */}
-                        {token ? <Link href="/profile " className="text-gray-400 hover:text-white hover:bg-black px-2 transition-colors">Mi cuenta</Link>
+                        {token ? <Link href="/profile " className="">Mi cuenta</Link>
                             : <AuthSheet />
                         }
                     </div>

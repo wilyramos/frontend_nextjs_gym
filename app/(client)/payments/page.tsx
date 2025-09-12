@@ -1,4 +1,4 @@
-
+import { getPaymentsData } from "@/src/services/payments";
 
 // Simulación de pagos (esto luego vendrá del backend con fetch/query)
 const payments = [
@@ -47,7 +47,12 @@ function getStatusBadge(status: string) {
     }
 }
 
-export default function PaymentsPage() {
+export default async function PaymentsPage() {
+
+    const payments = await getPaymentsData();
+
+    console.log("Payments data:", payments);
+
     return (
         <div className="p-6">
             <h1 className="text-3xl font-bold text-black mb-2">Payments</h1>

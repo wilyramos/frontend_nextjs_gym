@@ -4,11 +4,9 @@ type LogoProps = {
 
 export default function Logo({ className = "" }: LogoProps) {
     return (
-        <div className={`flex items-center space-x-2 ${className}`}>
-           
-
+        <div className={`flex items-center text-black space-x-2 ${className} `}>
             {/* Texto moderno */}
-            <span className="text-2xl font-extrabold text-black tracking-tight">
+            <span className="text-2xl font-extrabold  tracking-tight">
                 <span className="">Go</span>GYM
             </span>
         </div>

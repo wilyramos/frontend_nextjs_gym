@@ -35,7 +35,7 @@ export default function GymBenefitsCarousel() {
                 autoPlay={true}
                 autoPlaySpeed={3000}
                 arrows={true}
-                showDots={true}
+                // showDots={true}
                 containerClass="carousel-container"
                 itemClass="p-2"
                 partialVisible={true} // para que se vean los de los lados

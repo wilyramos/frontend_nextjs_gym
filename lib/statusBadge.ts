@@ -1,7 +1,7 @@
 import { getDaysRemaining } from "./helpers";
 
 
-export function getStatusBadge(status: string, validTo: string) {
+export function getStatusBadge(status: string, validTo: string | Date) {
     const days = getDaysRemaining(validTo);
 
     switch (status) {

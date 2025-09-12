@@ -6,8 +6,8 @@ import { getMembershipData } from "@/src/services/memberships";
 
 export default async function MembershipsPage() {
     const memberships = await getMembershipData(); // 👈 ahora viene del backend
-    const membership = memberships[0]; // si solo quieres mostrar la primera (actual)
-
+    
+    const membership = memberships ? memberships[0] : null; // Tomamos la primera membresía activa
     if (!membership) {
         return (
             <div className="p-6">
@@ -61,7 +61,7 @@ export default async function MembershipsPage() {
                     {status.label}
                 </div>
                 <h2 className="text-xl font-semibold text-black mb-1">
-                    {membership.subscription.plan} Plan
+                    {membership.subscription?.plan} Plan
                 </h2>
                 <p className="text-gray-700">
                     Vigente desde{" "}
@@ -81,9 +81,7 @@ export default async function MembershipsPage() {
                 <p className="text-gray-700 flex items-center gap-2">
                     <CreditCard className="w-5 h-5 text-gray-500" />
                     {/* si guardas tarjeta */}
-                    {membership.subscription.externalId
-                        ? `Referencia: ${membership.subscription.externalId}`
-                        : "Método de pago registrado en tu cuenta"}
+                    <span className="text-gray-600">**** **** **** 1234</span>
                 </p>
                 <button className="mt-4 px-4 py-2 rounded-lg bg-amber-300 text-black font-medium hover:bg-amber-300/80 transition">
                     Gestionar método de pago

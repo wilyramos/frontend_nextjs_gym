@@ -1,31 +1,43 @@
 "use client";
 
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { logoutAction } from "@/app/(public)/auth/actions";
-import { CgOptions, CgLogOut  } from "react-icons/cg";
+import { FiLogOut } from "react-icons/fi";
+import { SlOptionsVertical } from "react-icons/sl";
+
 
 
 export default function UserMenu() {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger className="focus:outline-none">
-                <CgOptions className="w-6 h-6 hover:text-gray-800 cursor-pointer" />
+                <SlOptionsVertical className="w-4 h-4 text-gray-500 hover:text-gray-700 cursor-pointer" />
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-48">
-                <DropdownMenuLabel className="text-gray-500">User Menu</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem className="hover:bg-gray-100 cursor-pointer flex items-center" onClick={() => logoutAction()}>
-                    <CgLogOut className="w-5 h-5 mr-2" />
+
+            <DropdownMenuContent
+                align="end"
+                className="w-44 bg-white border border-gray-200 shadow-md rounded-md"
+            >
+                <DropdownMenuLabel className="text-xs text-gray-400 px-2">
+                    User Menu
+                </DropdownMenuLabel>
+                <DropdownMenuSeparator className="bg-gray-200" />
+
+                <DropdownMenuItem
+                    className="cursor-pointer bg-white hover:bg-gray-100 text-gray-800 flex items-center"
+                    onClick={() => logoutAction()}
+                >
+                    <FiLogOut className="w-4 h-4 mr-2" />
                     Logout
                 </DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>
-    )
+    );
 }

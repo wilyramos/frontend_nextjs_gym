@@ -2,7 +2,7 @@
 
 
 // Helpers
-export function getDaysRemaining(validTo: string) {
+export function getDaysRemaining(validTo: string | Date) {
     const today = new Date();
     const endDate = new Date(validTo);
     const diffTime = endDate.getTime() - today.getTime();
