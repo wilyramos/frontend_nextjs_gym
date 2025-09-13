@@ -55,7 +55,7 @@ export default function Sidebar() {
     ];
 
     return (
-        <div className="flex">
+        <div className="flex max-w-2xl md:max-w-none min-h-[600px] md:min-h-0">
             {/* Sidebar */}
             <aside className="hidden md:flex md:flex-col w-48 text-gray-200">
                 <nav className="flex-1 p-2">

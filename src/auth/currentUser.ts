@@ -16,12 +16,10 @@ export async function getCurrentUser() {
         // next: { revalidate: 60 } // Revalida cada 60 segundos
     })
     const res = await req.json()
-    console.log(res);
 
     const validation = UserSchema.safeParse(res);
     if (!validation.success) {
         return null
     }
-    console.log(validation);
     return validation.data;
 }

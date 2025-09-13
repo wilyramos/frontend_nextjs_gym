@@ -1,37 +1,7 @@
+import { formatDate } from "@/lib/helpers";
 import { getPaymentsData } from "@/src/services/payments";
 
-// Simulación de pagos (esto luego vendrá del backend con fetch/query)
-const payments = [
-    {
-        id: 1,
-        amount: 50.0,
-        currency: "USD",
-        method: "CARD",
-        status: "APPROVED",
-        paymentDate: "2025-08-10T14:32:00Z",
-        externalId: "pi_123456",
-    },
-    {
-        id: 2,
-        amount: 25.5,
-        currency: "USD",
-        method: "PAYPAL",
-        status: "REFUNDED",
-        paymentDate: "2025-07-05T09:10:00Z",
-        externalId: "pp_987654",
-    },
-    {
-        id: 3,
-        amount: 40.0,
-        currency: "USD",
-        method: "CASH",
-        status: "PENDING",
-        paymentDate: "2025-06-20T19:45:00Z",
-        externalId: null,
-    },
-];
-
-// Helpers para badges
+// Helpers para badges de estado
 function getStatusBadge(status: string) {
     switch (status) {
         case "APPROVED":
@@ -48,47 +18,86 @@ function getStatusBadge(status: string) {
 }
 
 export default async function PaymentsPage() {
-
     const payments = await getPaymentsData();
 
-    console.log("Payments data:", payments);
-
     return (
-        <div className="p-6">
-            <h1 className="text-3xl font-bold text-black mb-2">Payments</h1>
-            <p className="text-gray-500 mb-6">Historial de tus pagos</p>
+        <div>
+            <h1 className="mb-2 text-3xl font-bold text-black">Payments</h1>
+            <p className="mb-6 text-gray-500">Historial de tus pagos</p>
 
-            <div className="bg-white rounded-xl shadow overflow-hidden border border-gray-200">
+            <div className="overflow-x-auto rounded-xl border border-gray-200 bg-white shadow">
                 <table className="w-full text-left">
                     <thead className="bg-gray-100">
                         <tr>
-                            <th className="px-4 py-3 text-sm font-semibold text-black">Fecha</th>
-                            <th className="px-4 py-3 text-sm font-semibold text-black">Monto</th>
-                            <th className="px-4 py-3 text-sm font-semibold text-black">Método</th>
-                            <th className="px-4 py-3 text-sm font-semibold text-black">Estado</th>
-                            <th className="px-4 py-3 text-sm font-semibold text-black">Referencia</th>
+                            <th className="px-4 py-3 text-sm font-semibold text-black">
+                                Fecha pago
+                            </th>
+                            <th className="px-4 py-3 text-sm font-semibold text-black">
+                                Método
+                            </th>
+                            <th className="px-4 py-3 text-sm font-semibold text-black">
+                                Descripción
+                            </th>
+                            <th className="px-4 py-3 text-sm font-semibold text-black">
+                                Monto
+                            </th>
                         </tr>
                     </thead>
-                    <tbody className="divide-y divide-gray-200">
+
+                    <tbody className="divide-y divide-gray-200 text-sm">
                         {payments.map((p) => (
-                            <tr key={p.id} className="hover:bg-gray-50 transition">
+                            <tr key={p.id} className="transition hover:bg-gray-50">
+                                {/* Fecha pago */}
                                 <td className="px-4 py-3 text-gray-700">
-                                    {new Date(p.paymentDate).toLocaleDateString()}
+                                    {formatDate(p.paymentDate.toISOString())}
                                 </td>
-                                <td className="px-4 py-3 text-gray-700 font-medium">
+
+                                {/* Método */}
+                                <td className="px-4 py-3 text-gray-700">{p.method}</td>
+
+                                {/* Descripción completa */}
+                                <td className="px-4 py-3 text-gray-700">
+                                    <div className="space-y-1">
+                                        {/* Plan */}
+                                        <p className="font-medium">
+                                            Plan: {p.subscription?.plan ?? "—"}
+                                        </p>
+
+                                        {/* Estado de pago con badge */}
+                                        <span
+                                            className={`inline-block rounded-full px-2 py-0.5 text-xs font-medium ${getStatusBadge(
+                                                p.status
+                                            )}`}
+                                        >
+                                            {p.status}
+                                        </span>
+
+                                        {/* Rango de fechas */}
+                                        <p className="text-xs text-gray-500">
+                                            {p.subscription?.startDate
+                                                ? `Inicio: ${new Date(
+                                                    p.subscription.startDate
+                                                ).toLocaleDateString()}`
+                                                : "Inicio: —"}
+                                            {"  |  "}
+                                            {p.subscription?.endDate
+                                                ? `Fin: ${new Date(
+                                                    p.subscription.endDate
+                                                ).toLocaleDateString()}`
+                                                : "Fin: —"}
+                                        </p>
+
+                                        {/* ID de referencia / gateway */}
+                                        <p className="text-xs text-gray-400">
+                                            Ref: {p.externalId ?? "—"} | {p.gateway}
+                                        </p>
+                                    </div>
+                                </td>
+
+                                {/* Monto */}
+                                <td className="px-4 py-3 font-medium text-gray-700">
                                     {p.amount} {p.currency}
                                 </td>
-                                <td className="px-4 py-3 text-gray-700">{p.method}</td>
-                                <td className="px-4 py-3">
-                                    <span
-                                        className={`px-2 py-1 text-xs rounded-full font-medium ${getStatusBadge(
-                                            p.status
-                                        )}`}
-                                    >
-                                        {p.status}
-                                    </span>
-                                </td>
-                                <td className="px-4 py-3 text-gray-500">{p.externalId || "-"}</td>
                             </tr>
                         ))}
                     </tbody>

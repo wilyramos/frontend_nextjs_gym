@@ -1,12 +1,13 @@
 
-import { CreditCard, History, Users, PauseCircle, XCircle } from "lucide-react";
+import { CreditCard, History, Users, XCircle } from "lucide-react";
 import Link from "next/link";
-import { getStatusBadge } from "@/lib/statusBadge";
 import { getMembershipData } from "@/src/services/memberships";
+import { formatDate } from "@/lib/helpers";
+import { getStatusBadgeLabel } from "@/lib/statusBadge";
 
 export default async function MembershipsPage() {
     const memberships = await getMembershipData(); // 👈 ahora viene del backend
-    
+
     const membership = memberships ? memberships[0] : null; // Tomamos la primera membresía activa
     if (!membership) {
         return (
@@ -23,7 +24,6 @@ export default async function MembershipsPage() {
         );
     }
 
-    const status = getStatusBadge(membership.status, membership.validTo);
 
     const quickActions = [
         {
@@ -31,15 +31,11 @@ export default async function MembershipsPage() {
             icon: <Users className="w-5 h-5" />,
             href: "/dashboard/change-plan",
         },
-        {
-            name: "Pausar membresía",
-            icon: <PauseCircle className="w-5 h-5" />,
-            href: "/dashboard/pause-membership",
-        },
+
         {
             name: "Cancelar membresía",
             icon: <XCircle className="w-5 h-5" />,
-            href: "/dashboard/cancel-membership",
+            href: "/cancelsubscription",
         },
         {
             name: "Ver historial de pagos",
@@ -49,43 +45,69 @@ export default async function MembershipsPage() {
     ];
 
     return (
-        <div className="p-6">
+        <div className="">
             <h1 className="text-3xl font-bold text-black mb-2">Memberships</h1>
             <p className="text-gray-500 mb-6">Detalles de tu plan</p>
 
             {/* Membership Card */}
             <div className="bg-white rounded-xl shadow p-6 mb-8 border border-gray-200">
-                <div
-                    className={`inline-block px-3 py-1 rounded-full text-sm font-medium mb-3 ${status.className}`}
-                >
-                    {status.label}
+
+                {/* Membership Header */}
+                <div className="flex items-center justify-between mb-4">
+                    {/* Status Badge */}
+                    <div
+                        className={`inline-block px-2  rounded-full text-sm ${getStatusBadgeLabel(membership.subscription?.status || "CANCELED").className
+                            }`}
+                    >
+                        {getStatusBadgeLabel(membership.subscription?.status || "CANCELED").label}
+                    </div>
                 </div>
-                <h2 className="text-xl font-semibold text-black mb-1">
+
+
+                <h2 className="text-lg font-bold text-black mb-1 uppercase">
                     {membership.subscription?.plan} Plan
+                    <p className="ml-2">
+                       
+
+                    </p>
                 </h2>
                 <p className="text-gray-700">
                     Vigente desde{" "}
-                    <span className="font-medium text-black">
-                        {new Date(membership.validFrom).toLocaleDateString()}
+                    <span className=" text-black font-bold">
+                        {formatDate(membership.validFrom || "")}
                     </span>{" "}
                     hasta{" "}
-                    <span className="font-medium text-black">
-                        {new Date(membership.validTo).toLocaleDateString()}
+                    <span className=" text-black font-bold">
+                        {formatDate(membership.validTo || "")}
                     </span>
                 </p>
             </div>
 
             {/* Payment Info */}
-            <h2 className="text-xl font-semibold text-black mb-3">Payment Info</h2>
-            <div className="bg-white rounded-xl shadow p-6 mb-8 border border-gray-200">
-                <p className="text-gray-700 flex items-center gap-2">
-                    <CreditCard className="w-5 h-5 text-gray-500" />
-                    {/* si guardas tarjeta */}
-                    <span className="text-gray-600">**** **** **** 1234</span>
-                </p>
-                <button className="mt-4 px-4 py-2 rounded-lg bg-amber-300 text-black font-medium hover:bg-amber-300/80 transition">
+            <h2 className="text-xl font-semibold text-black mb-3">Informacion de pago</h2>
+            <div className="bg-white rounded-xl shadow p-6 mb-8 border border-gray-200 space-y-4">
+                <div className="text-gray-700 flex flex-col">
+                    <span className="font-bold">Próximo pago</span>
+                    <span>{formatDate(membership.validTo || "")}</span>
+
+                    <div className="flex items-center gap-2">
+                        <CreditCard className="w-5 h-5 text-blue-500" />
+                        {/* si guardas tarjeta */}
+                        <span className="text-gray-600">**** **** **** 1234</span>
+                    </div>
+                </div>
+                <Link
+                    href="/dashboard/payment-method"
+                    className="flex p-2 text-black hover:bg-gray-100 font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+                >
                     Gestionar método de pago
-                </button>
+                </Link>
+                <Link
+                    href="/payments"
+                    className="flex p-2 text-black hover:bg-gray-100 font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                    Ver historial de pagos
+                </Link>
             </div>
 
             {/* Quick Actions */}

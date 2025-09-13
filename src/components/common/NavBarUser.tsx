@@ -3,7 +3,7 @@ import UserMenu from "./UserMenu"
 
 export default function NavBarUser({ user }: { user: { name: string } | null }) {
     return (
-        <header className="h-14  items-center px-4 shadow-md flex justify-between  ">
+        <header className="h-14  items-center shadow-xs flex justify-between  px-10">
             <div className="flex items-center gap-2">
                 <Logo />
             </div>

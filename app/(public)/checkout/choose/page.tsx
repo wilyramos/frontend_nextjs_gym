@@ -20,9 +20,7 @@ export default function ChoosePage() {
     return (
         <div className="py-10 px-6 flex flex-col items-center">
             {/* Título */}
-            <h1 className="text-4xl font-extrabold text-center text-black mb-6">
-                Nuestros Planes
-            </h1>
+            
             <p className="text-gray-600 text-center max-w-2xl mb-12">
                 Escoge el plan que mejor se adapte a tus objetivos y comienza tu entrenamiento hoy mismo.
             </p>

@@ -4,64 +4,54 @@ import subscriptionPlans from "@/src/data/subscriptionPlans.json";
 
 export default function ListPricing() {
     return (
-        <div className="bg-white py-5 px-6">
-            <h1 className="text-4xl font-bold text-center text-black mb-12">
-                {/* Nuestros Planes */}
-            </h1>
+        <section className="py-16">
+            <div className="max-w-7xl mx-auto px-6 text-center">
+                <div className="flex flex-col md:flex-row gap-8 justify-center">
+                    {subscriptionPlans.map((plan) => (
+                        <article
+                            key={plan.id}
+                            className={`flex-1 rounded-2xl border transition duration-300 shadow-sm hover:shadow-xl hover:-translate-y-1 ${plan.popular
+                                    ? "border-amber-500 bg-white relative"
+                                    : "border-gray-200 bg-white"
+                                }`}
+                        >
+                            {plan.popular && (
+                                <div className="absolute top-0 left-1/2 -translate-x-1/2 bg-amber-500 text-black text-sm font-semibold px-4 py-1 rounded-b-md">
+                                    Más Popular
+                                </div>
+                            )}
 
-            <div className="flex flex-col md:flex-row justify-center items-stretch gap-6 max-w-7xl mx-auto">
-                {subscriptionPlans.map((plan) => (
-                    <div
-                        key={plan.id}
-                        className={`flex-1 border rounded-xl overflow-hidden shadow-md transition-transform duration-300 hover:scale-105
-              ${plan.popular
-                                ? "border-amber-500 bg-white md:-translate-y-3"
-                                : "border-gray-200 bg-white"
-                            }`}
-                    >
-                        {/* Badge */}
-                        {plan.popular && (
-                            <div className="bg-amber-500 text-black text-sm font-bold text-center py-1">
-                                Más Popular
-                            </div>
-                        )}
+                            <div className="p-8 flex flex-col h-full">
+                                <div className="mb-6">
+                                    <h2 className="text-2xl font-bold text-gray-900 mb-2">
+                                        {plan.name}
+                                    </h2>
+                                    <p className="text-3xl font-extrabold text-gray-900">
+                                        PEN {plan.price}
+                                        <span className="text-base text-gray-500"> /{plan.duration}</span>
+                                    </p>
+                                </div>
 
-                        {/* Content */}
-                        <div className="p-6 flex flex-col h-full justify-between">
-                            <div>
-                                <h2 className="text-2xl font-bold text-black mb-2">
-                                    {plan.name}
-                                </h2>
-
-                                <p className="text-black text-2xl font-bold mb-6">
-                                    PEN {plan.price}{" "}
-                                    <span className="text-gray-600 text-base">
-                                        /{plan.duration}
-                                    </span>
-                                </p>
-
-                                <ul className="mb-6 space-y-3 text-gray-700">
-                                    {plan.features.map((feature, idx) => (
-                                        <li key={idx} className="flex items-center gap-3">
-                                            <AiOutlineCheck className="text-amber-300 w-5 h-5 flex-shrink-0" />
-                                            <span className="text-gray-800">{feature}</span>
+                                <ul className="flex-1 space-y-4 text-gray-700 text-left">
+                                    {plan.features.map((feature: string, idx: number) => (
+                                        <li key={idx} className="flex items-start gap-3">
+                                            <AiOutlineCheck className="text-amber-400 w-5 h-5 mt-0.5" />
+                                            <span>{feature}</span>
                                         </li>
                                     ))}
                                 </ul>
                             </div>
+                        </article>
+                    ))}
+                </div>
 
-
-                        </div>
-                    </div>
-                ))}
+                <Link
+                    href="/checkout/choose"
+                    className="mt-12 inline-block bg-amber-400 hover:bg-amber-500 text-black font-bold py-3 px-12 rounded-xl shadow transition-colors"
+                >
+                    Inscribirme
+                </Link>
             </div>
-
-            <Link
-                href="/checkout/choose"
-                className="mt-10 inline-block bg-amber-300 text-black font-bold py-3 px-20 rounded-lg hover:bg-amber-400 transition-colors mx-auto"
-            >
-                Inscribirme
-            </Link>
-        </div>
+        </section>
     );
 }

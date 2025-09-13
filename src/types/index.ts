@@ -137,8 +137,8 @@ export const membershipStatusEnum = z.enum(["ACTIVE", "PAUSED", "EXPIRED"]);
 
 const membershipBaseSchema = z.object({
     status: membershipStatusEnum.default("ACTIVE"),
-    validFrom: z.coerce.date(),
-    validTo: z.coerce.date(),
+    validFrom: z.string().optional(),
+    validTo: z.string().optional(),
 });
 
 export const membershipSchema = membershipBaseSchema.extend({
@@ -156,8 +156,8 @@ export const membershipCreateSchema = membershipBaseSchema.extend({
 
 export const membershipUpdateSchema = membershipBaseSchema.partial().extend({
     status: membershipStatusEnum.optional(),
-    validFrom: z.coerce.date().optional(),
-    validTo: z.coerce.date().optional(),
+    validFrom: z.string().optional(),
+    validTo: z.string().optional(),
     subscriptionId: z.number().int().positive().nullable().optional(),
 });
 

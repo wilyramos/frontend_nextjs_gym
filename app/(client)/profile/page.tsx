@@ -1,43 +1,55 @@
 import { getCurrentUser } from "@/src/auth/currentUser";
-
-
+import { FaUser, FaEnvelope, FaPhone, FaIdCard } from "react-icons/fa";
 
 export default async function ProfilePage() {
-
     const user = await getCurrentUser();
 
     if (!user) {
         return <div>Loading...</div>;
     }
 
-
-
     return (
+        <div>
+            <h1 className="mb-2 text-3xl font-bold text-black">Perfil</h1>
+            <p className="mb-6 text-gray-500">Detalles de tu cuenta</p>
 
-        <div className="max-w-2xl mx-auto flex flex-col ">
-            <h1 className="text-3xl font-bold text-black mb-2">My Profile</h1>
-            <p className="text-gray-500 mb-6">Manage your personal information</p>
-
-            <div className="bg-white rounded-xl shadow p-6 mb-8 border border-gray-200">
-                <div>
-                    <p className="text-gray-500 text-sm">Name</p>
-                    <p className="text-lg font-medium">{user.name}</p>
+            <div className="bg-white rounded-xl shadow p-6 mb-8 border border-gray-200 space-y-4">
+                {/* Nombre */}
+                <div className="flex items-center gap-3">
+                    <FaUser className="text-gray-600 text-lg" />
+                    <div>
+                        <p className="text-sm text-gray-500">Name</p>
+                        <p className="text-base font-medium">{user.name}</p>
+                    </div>
                 </div>
 
-                <div>
-                    <p className="text-gray-500 text-sm">Email</p>
-                    <p className="text-lg font-medium">{user.email}</p>
+                {/* Email */}
+                <div className="flex items-center gap-3">
+                    <FaEnvelope className="text-gray-600 text-lg" />
+                    <div>
+                        <p className="text-sm text-gray-500">Email</p>
+                        <p className="text-base font-medium">{user.email}</p>
+                    </div>
                 </div>
 
-                <div>
-                    <p className="text-gray-500 text-sm">Phone</p>
-                    <p className="text-lg font-medium">{user.phone}</p>
+                {/* Teléfono */}
+                <div className="flex items-center gap-3">
+                    <FaPhone className="text-gray-600 text-lg" />
+                    <div>
+                        <p className="text-sm text-gray-500">Phone</p>
+                        <p className="text-base font-medium">{user.phone}</p>
+                    </div>
                 </div>
+                <div className="flex items-center gap-3">
+                    <FaIdCard className="text-gray-600 text-lg" />
+
+                    <div>
+                        <p className="text-sm text-gray-500">DNI</p>
+                        <p className="text-base font-medium">{user.document}</p>
+                    </div>
+                </div>
+
             </div>
-
-            <button className="mt-6 bg-black text-white py-2 px-4 rounded-md hover:bg-gray-800 w-32">
-                Edit Profile
-            </button>
         </div>
     );
 }

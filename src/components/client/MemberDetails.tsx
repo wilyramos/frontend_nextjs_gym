@@ -1,71 +1,66 @@
-import Link from "next/link"
-import type { MembershipArray } from "@/src/types"
+import Link from "next/link";
+import type { MembershipArray } from "@/src/types";
+import { getDaysRemaining } from "@/lib/helpers";
 
 type Props = {
-    memberships?: MembershipArray
-}
+    memberships?: MembershipArray;
+};
 
 export default function MemberDetails({ memberships }: Props) {
-    const membership = memberships?.[0] // primera membresía
+    const membership = memberships?.[0];
 
-    function getDaysRemaining(nextPayment: string) {
-        const today = new Date()
-        const paymentDate = new Date(nextPayment)
-        const diffTime = paymentDate.getTime() - today.getTime()
-        return Math.ceil(diffTime / (1000 * 60 * 60 * 24))
+    if (!membership || !membership.validFrom || !membership.validTo) {
+        return (
+            <div className="bg-white border rounded-xl p-4 shadow-sm text-gray-500">
+                No tienes membresía activa
+            </div>
+        );
     }
 
-    function getMembershipStatus(nextPayment: string | null) {
-        if (!nextPayment) return { label: "Sin membresía", color: "text-gray-500" }
-        const days = getDaysRemaining(nextPayment)
-        if (days < 0) return { label: "Expirado", color: "text-red-600" }
-        return { label: "Activo", color: "text-green-600", days }
-    }
-
-    const statusInfo = getMembershipStatus(membership?.validTo?.toString() || null)
+    const membershipStatus = membership.subscription?.status === "ACTIVE" ? "Activa" : "Inactiva";
+    const membershipStatusColor = membership.subscription?.status === "ACTIVE" ? "text-green-600" : "text-red-600";
+    const daysRemaining = getDaysRemaining(membership.validTo);
 
     return (
-        <div className="rounded-xl border p-4 shadow-sm bg-white">
-            <div className=" items-center gap-2 flex justify-between">
-                <h2 className="text-sm bg-gradient-to-bl from-rose-600 to-red-500 rounded-r-3xl px-2 py-1 font-medium text-white">
-                    Miembro desde {membership ? new Date(membership.validFrom).toLocaleDateString() : "N/A"}
+        <div className="bg-white border rounded-xl p-4 shadow-sm">
+            {/* Encabezado */}
+            <div className="flex justify-between gap-2">
+                <h2 className="px-2 py-1 text-sm font-medium text-white rounded-r-3xl bg-gradient-to-bl from-rose-600 to-red-500">
+                    Miembro desde {new Date(membership.validFrom).toLocaleDateString()}
                 </h2>
 
-                {statusInfo.days && (
-                    <p>
-                        <span className="font-medium">Días restantes:</span> {statusInfo.days}
-                    </p>
-                )}
-            </div>
-
-            {membership ? (
-                <div className="mt-4 space-y-1 text-sm text-gray-700">
-                    <p className="font-bold">
-                        {membership.subscription?.plan}
-                        <span className="uppercase">{" "} Plan:</span>
-                    </p>
-
-                    <p>
-                        <span className="font-medium">Válido hasta:</span>{" "}
-                        {new Date(membership.validTo).toLocaleDateString()}
-                    </p>
-
+                <div className="text-sm font-medium text-gray-700 text-right">
+                    Estado: <span className={membershipStatusColor}>{membershipStatus}</span>
                 </div>
 
+                <div className="text-sm font-medium text-gray-700">
+                    {daysRemaining > 0 ? (
+                        <span>
+                            {daysRemaining} <span className="text-gray-500 text-xs">días restantes</span>
+                        </span>
+                    ) : (
+                        <span className="text-red-600">Membresía expirada</span>
+                    )}
+                </div>
+            </div>
 
-            ) : (
-                <p className="mt-4 text-sm text-gray-500">No tienes membresía activa</p>
-            )}
+            {/* Detalles de la membresía */}
+            <div className="mt-4 text-sm text-gray-700">
+                <p className="font-bold">
+                    {membership.subscription?.plan} <span className="uppercase">Plan:</span>
+                </p>
+                <p>Válido hasta: {new Date(membership.validTo).toLocaleDateString()}</p>
+            </div>
 
+            {/* Link de gestión */}
             <div className="mt-4">
                 <Link
-                    href="/dashboard/manage-membership"
-                    className="text-sm font-medium text-blue-600 hover:underline"
+                    href="/memberships"
+                    className="text-sm font-medium text-gray-700 py-2 hover:bg-gray-100 hover:text-black transition w-full mx-auto block text-start px-2"
                 >
                     Gestionar membresía
-
                 </Link>
             </div>
         </div>
-    )
+    );
 }
