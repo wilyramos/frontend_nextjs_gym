@@ -7,7 +7,7 @@ import Logo from "@/src/components/common/Logo";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
     return (
-        <div className="min-h-screen">
+        <div className="">
             {/* Desktop Navbar */}
             <div className="hidden md:block">
                 <Navbar />
@@ -17,7 +17,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <div className="md:hidden p-2 flex justify-between">
                 <Logo />
                 <MobileNavbar />
-
             </div>
 
             {/* Main content */}

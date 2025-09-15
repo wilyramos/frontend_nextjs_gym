@@ -11,7 +11,7 @@ export default function ListPricing() {
                         <article
                             key={plan.id}
                             className={`flex-1 rounded-2xl border transition duration-300 shadow-sm hover:shadow-xl hover:-translate-y-1 ${plan.popular
-                                    ? "border-amber-500 bg-white relative"
+                                    ? "border-red-700 bg-white relative"
                                     : "border-gray-200 bg-white"
                                 }`}
                         >

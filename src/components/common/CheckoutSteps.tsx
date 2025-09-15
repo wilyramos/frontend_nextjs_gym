@@ -2,7 +2,6 @@
 
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { cn } from "@/lib/utils";
 
 const steps = [
     { label: "Plan", path: "/checkout/choose" },
@@ -12,66 +11,37 @@ const steps = [
 
 export default function CheckoutSteps() {
     const pathname = usePathname();
-    const currentStepIndex = steps.findIndex((s) => pathname.startsWith(s.path));
+    const current = steps.findIndex((s) => pathname.startsWith(s.path));
 
     return (
-        <div className="flex flex-col md:flex-row items-center justify-center md:justify-between px-6 py-6 max-w-4xl mx-auto">
-            {steps.map((step, index) => {
-                const isActive = currentStepIndex === index;
-                const isCompleted = currentStepIndex > index;
+        <div className="mx-auto flex max-w-2xl items-center justify-between px-10">
+            {steps.map((step, i) => {
+                const active = current === i;
+                const done = current > i;
 
                 return (
-                    <div key={step.path} className="flex-1 flex items-center">
-                        {/* Línea antes del paso */}
-                        {index !== 0 && (
-                            <div
-                                className={cn(
-                                    "hidden md:block h-1 flex-1 transition-colors",
-                                    isCompleted ? "bg-gray-900" : "bg-gray-400"
-                                )}
-                            />
+                    <div key={step.path} className="flex flex-1 items-center">
+                        {i > 0 && (
+                            <div className={`h-px flex-1 ${done ? "bg-black" : "bg-gray-600"}`} />
                         )}
 
-                        {/* Paso */}
-                        <div className="flex flex-col items-center text-center">
+                        <div className="flex flex-col items-center">
                             <div
-                                className={cn(
-                                    "w-8 h-8 rounded-full flex items-center justify-center font-bold text-lg transition-colors",
-                                    isCompleted
-                                        ? "bg-gray-900 text-white"
-                                        : isActive
-                                            ? "bg-amber-300 text-black"
-                                            : "bg-gray-700 text-gray-300"
-                                )}
+                                className={`flex h-6 w-6 items-center justify-center rounded-full text-white text-xs font-bold ${done || active ? "bg-black" : "bg-gray-600"
+                                    }`}
                             >
-                                {index + 1}
+                                {i + 1}
                             </div>
                             <span
-                                className={cn(
-                                    "mt-2 text-sm md:text-base transition-colors",
-                                    isActive
-                                        ? "text-amber-300 font-bold"
-                                        : isCompleted
-                                            ? "text-white cursor-pointer hover:text-amber-300"
-                                            : "text-gray-400"
-                                )}
+                                className={`mt-2 text-sm ${active || done ? "text-black font-medium" : "text-gray-600"
+                                    }`}
                             >
-                                {isCompleted ? (
-                                    <Link href={step.path}>{step.label}</Link>
-                                ) : (
-                                    step.label
-                                )}
+                                {done ? <Link href={step.path}>{step.label}</Link> : step.label}
                             </span>
                         </div>
 
-                        {/* Línea después del paso */}
-                        {index !== steps.length - 1 && (
-                            <div
-                                className={cn(
-                                    "hidden md:block h-1 flex-1 transition-colors",
-                                    currentStepIndex > index ? "bg-gray-900" : "bg-gray-400"
-                                )}
-                            />
+                        {i < steps.length - 1 && (
+                            <div className={`h-px flex-1 ${done ? "bg-black" : "bg-gray-600"}`} />
                         )}
                     </div>
                 );

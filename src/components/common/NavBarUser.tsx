@@ -1,4 +1,5 @@
 import Logo from "./Logo"
+import { ThemeToggle } from "./ThemeToggle"
 import UserMenu from "./UserMenu"
 
 export default function NavBarUser({ user }: { user: { name: string } | null }) {
@@ -11,9 +12,12 @@ export default function NavBarUser({ user }: { user: { name: string } | null }) 
             <div>
 
                 <div className="flex gap-2">
-                    <p className="text-sm text-black">Hola, {user?.name || "Usuario"}</p>
+                    <p className="text-sm text-white">Hola, {user?.name || "Usuario"}</p>
                     <UserMenu />
+                    <ThemeToggle />
                 </div>
+
+               
             </div>
         </header>
     )

@@ -16,7 +16,6 @@ import {
     FaCog,
 } from "react-icons/fa";
 import { GiWeightLiftingUp } from "react-icons/gi"; // dumbbell outline
-import React from "react";
 
 export default function Sidebar() {
     const pathname = usePathname();
@@ -57,7 +56,7 @@ export default function Sidebar() {
     return (
         <div className="flex max-w-2xl md:max-w-none min-h-[600px] md:min-h-0">
             {/* Sidebar */}
-            <aside className="hidden md:flex md:flex-col w-48 text-gray-200">
+            <aside className="hidden md:flex md:flex-col w-48">
                 <nav className="flex-1 p-2">
                     {navItems.map((item) => {
                         const isActive = pathname === item.href;
@@ -67,10 +66,10 @@ export default function Sidebar() {
                             <Link
                                 key={item.name}
                                 href={item.href}
-                                className={`flex items-center gap-2 px-3 py-2 rounded leading-relaxed  transition 
+                                className={`flex items-center gap-2 px-3 py-2 rounded-md transition
                   ${isActive
-                                        ? " font-bold text-gray-800"
-                                        : "text-gray-500 hover:bg-gray-100 hover:text-black"
+                                        ? "font-semibold text-foreground bg-accent"
+                                        : "text-muted-foreground hover:bg-accent hover:text-foreground"
                                     }`}
                             >
                                 <Icon className="w-5 h-5" />

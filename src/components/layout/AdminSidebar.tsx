@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import UserMenu from "../common/UserMenu";
 
 import {
     Home,
@@ -88,8 +89,9 @@ export default function GymSidebar() {
             </nav>
 
             {/* Footer */}
-            <div className="border-t border-gray-200 p-3 text-xs text-gray-500 text-center">
+            <div className="border-t border-gray-200 p-3 text-xs text-gray-500 text-center flex justify-between">
                 {expanded ? "Gym Flow V4" : "⚡"}
+                <UserMenu />
             </div>
         </aside>
     );

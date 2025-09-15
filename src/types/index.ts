@@ -19,6 +19,18 @@ export type TLogin = z.infer<typeof loginSchema>;
 /* ======================
    👤 USERS
 ====================== */
+
+
+// Change password
+
+export const changePasswordSchema = z.object({
+    currentPassword: string().min(1, { message: "La contraseña actual es obligatoria" }),
+    newPassword: string().min(6, { message: "La contraseña debe tener al menos 6 caracteres" }),
+    confirmNewPassword: string().min(1, { message: "Debe confirmar la nueva contraseña" }),
+}).refine((data) => data.newPassword === data.confirmNewPassword, {
+    message: "Las contraseñas no coinciden",
+});
+
 export const UserRoleEnum = z.enum(["CLIENT", "ADMIN", "TRAINER"]);
 export const AuthProviderEnum = z.enum(["LOCAL", "GOOGLE"]);
 

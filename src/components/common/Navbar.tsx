@@ -11,21 +11,21 @@ export default async function Navbar() {
     const desktopLinks = (
         <>
             <Link href="/" className="">
-                Inicio
+                {/* Inicio */}
             </Link>
-            <Link href="/pricing" className="">
+            {/* <Link href="/pricing" className="">
                 Planes
-            </Link>
+            </Link> */}
         </>
     );
 
     return (
         <NavbarClient>
-            <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div className="max-w-5xl mx-auto  flex justify-between items-center">
                 {/* Logo */}
                 <Link
                     href="/"
-                    className="text-2xl font-extrabold text-black-100 px-2 bg-amber-300 tracking-tight "
+                    className="text-2xl font-extrabold text-black-100 px-2  tracking-tight "
                 >
                     <Logo />
                 </Link>

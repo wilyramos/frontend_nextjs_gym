@@ -2,11 +2,15 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 
 export default function NavbarClient({ children }: { children: React.ReactNode }) {
-    const [show, setShow] = useState(true); // mostrar u ocultar navbar
-    const [lastScrollY, setLastScrollY] = useState(0); // última posición de scroll
-    const [isTop, setIsTop] = useState(true); // si estamos en la parte superior
+    const pathname = usePathname();
+    const isHome = pathname === "/";
+
+    const [show, setShow] = useState(true);
+    const [lastScrollY, setLastScrollY] = useState(0);
+    const [isTop, setIsTop] = useState(true);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -19,22 +23,26 @@ export default function NavbarClient({ children }: { children: React.ReactNode }
                 setShow(true);
             }
 
-            // Cambiar estado de isTop
+            // Saber si estamos arriba
             setIsTop(currentScrollY === 0);
 
             setLastScrollY(currentScrollY);
         };
 
         window.addEventListener("scroll", handleScroll);
-
         return () => window.removeEventListener("scroll", handleScroll);
     }, [lastScrollY]);
 
     return (
         <nav
-            className={`fixed top-0 left-0 w-full z-50 transition-transform duration-300
-                ${show ? "translate-y-0" : "-translate-y-full text-black"}
-                ${isTop ? "bg-transparent text-white" : "bg-white shadow-xs text-black"}
+            className={`fixed top-0 left-0 w-full z-50 transition-all duration-300
+                ${show ? "translate-y-0" : "-translate-y-full"}
+                ${isHome
+                    ? isTop
+                        ? "bg-transparent text-white"
+                        : "bg-red-700 text-black shadow-xs"
+                    : "bg-red-700 text-black shadow-xs"
+                }
             `}
         >
             {children}

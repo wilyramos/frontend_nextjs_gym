@@ -15,7 +15,7 @@ export function getStatusBadge(status: string, validTo: string | Date) {
         case "ACTIVE":
             return {
                 label: `Activo - ${days} días restantes`,
-                className: "bg-amber-300 text-black",
+                className: "bg-red-700 text-black",
             };
         case "PAUSED":
             return { label: "Pausado", className: "bg-gray-200 text-black" };

@@ -14,9 +14,9 @@ export default function Footer() {
                     <Logo className="text-white"/>
                     <p>Tu gimnasio de confianza con los mejores beneficios, entrenadores certificados y un ambiente cómodo.</p>
                     <div className="flex gap-3 mt-2">
-                        <FiFacebook size={20} className="hover:text-amber-400 cursor-pointer" />
-                        <FiInstagram size={20} className="hover:text-amber-400 cursor-pointer" />
-                        <FiTwitter size={20} className="hover:text-amber-400 cursor-pointer" />
+                        <FiFacebook size={20} className="hover:text-red-700 cursor-pointer" />
+                        <FiInstagram size={20} className="hover:text-red-700 cursor-pointer" />
+                        <FiTwitter size={20} className="hover:text-red-700 cursor-pointer" />
                     </div>
                 </div>
 
@@ -24,9 +24,6 @@ export default function Footer() {
                 <div>
                     <h3 className="text-lg font-semibold mb-3">Enlaces </h3>
                     <ul className="flex flex-col gap-2">
-                        <li className="hover:text-amber-400 cursor-pointer">Inicio</li>
-                        <li className="hover:text-amber-400 cursor-pointer">Planes</li>
-                        <li className="hover:text-amber-400 cursor-pointer">Beneficios</li>
                     </ul>
                 </div>
 

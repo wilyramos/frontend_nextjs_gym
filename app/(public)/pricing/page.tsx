@@ -3,7 +3,6 @@
 import ListPricing from "@/src/components/home/ListPricing";
 
 
-
 export default function PricingPage() {
     return (
         <section className="max-w-7xl mx-auto px-6 py-20 text-center">

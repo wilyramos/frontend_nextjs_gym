@@ -1,55 +1,74 @@
 import { getCurrentUser } from "@/src/auth/currentUser";
+import EditProfileDialog from "@/src/components/client/overview/EditProfileDialog";
+import Spinner from "@/src/components/common/Spinner";
+import Link from "next/link";
 import { FaUser, FaEnvelope, FaPhone, FaIdCard } from "react-icons/fa";
+import { RiLockPasswordLine } from "react-icons/ri";
+
 
 export default async function ProfilePage() {
     const user = await getCurrentUser();
 
     if (!user) {
-        return <div>Loading...</div>;
+        return <Spinner />;
     }
 
     return (
         <div>
-            <h1 className="mb-2 text-3xl font-bold text-black">Perfil</h1>
-            <p className="mb-6 text-gray-500">Detalles de tu cuenta</p>
+            <div className="flex justify-between items-center mb-6">
 
-            <div className="bg-white rounded-xl shadow p-6 mb-8 border border-gray-200 space-y-4">
+                <div>
+                    <h1 className="text-3xl font-bold">Profile</h1>
+                    <p className="text-muted-foreground">Manage your personal information</p>
+                </div>
+                <EditProfileDialog user={user} />
+            </div>
+
+            <div className="rounded-xl shadow p-6 mb-8 border space-y-4">
                 {/* Nombre */}
                 <div className="flex items-center gap-3">
-                    <FaUser className="text-gray-600 text-lg" />
+                    <FaUser className="" />
                     <div>
-                        <p className="text-sm text-gray-500">Name</p>
-                        <p className="text-base font-medium">{user.name}</p>
+                        <p className="text-sm text-muted-foreground">Name</p>
+                        <p className="text-base ">{user.name}</p>
                     </div>
                 </div>
 
                 {/* Email */}
                 <div className="flex items-center gap-3">
-                    <FaEnvelope className="text-gray-600 text-lg" />
+                    <FaEnvelope className="" />
                     <div>
-                        <p className="text-sm text-gray-500">Email</p>
-                        <p className="text-base font-medium">{user.email}</p>
+                        <p className="text-sm text-muted-foreground">Email</p>
+                        <p className="text-base ">{user.email}</p>
                     </div>
                 </div>
 
                 {/* Teléfono */}
                 <div className="flex items-center gap-3">
-                    <FaPhone className="text-gray-600 text-lg" />
+                    <FaPhone className="" />
                     <div>
-                        <p className="text-sm text-gray-500">Phone</p>
-                        <p className="text-base font-medium">{user.phone}</p>
+                        <p className="text-sm text-muted-foreground">Phone</p>
+                        <p className="text-base ">{user.phone}</p>
                     </div>
                 </div>
+
+                {/* Documento */}
                 <div className="flex items-center gap-3">
-                    <FaIdCard className="text-gray-600 text-lg" />
-
+                    <FaIdCard className="" />
                     <div>
-                        <p className="text-sm text-gray-500">DNI</p>
-                        <p className="text-base font-medium">{user.document}</p>
+                        <p className="text-sm text-muted-foreground">DNI</p>
+                        <p className="text-base ">{user.document}</p>
                     </div>
                 </div>
-
             </div>
+
+            <Link
+                className="flex items-center justify-between p-4 hover:bg-accent transition border rounded-xl shadow"
+                href={"/password"}
+            >
+                <RiLockPasswordLine />
+                Contraseña
+            </Link>
         </div>
     );
 }

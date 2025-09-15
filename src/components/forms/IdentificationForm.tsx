@@ -13,7 +13,7 @@ type Props = {
 export default function IdentificationForm({ user }: Props) {
     const router = useRouter();
     const searchParams = useSearchParams();
-    const plan = searchParams.get("plan"); // 👈 aquí obtienes el valor del query param
+    const plan = searchParams.get("plan");
 
     const [state, dispatch] = useActionState(EditUserAction, {
         errors: [],
@@ -23,7 +23,7 @@ export default function IdentificationForm({ user }: Props) {
     useEffect(() => {
         if (state.success) {
             toast.success(state.success);
-            router.push(`/checkout/payment?plan=${plan}`); // Rediriges con el mismo plan
+            router.push(`/checkout/payment?plan=${plan}`);
         }
     }, [state, router, plan]);
 
@@ -32,7 +32,7 @@ export default function IdentificationForm({ user }: Props) {
             <form action={dispatch} className="flex flex-col gap-4">
                 {/* Nombre */}
                 <div className="flex flex-col">
-                    <label className="mb-2 text-gray-700 font-semibold">
+                    <label className="mb-2 text-gray-700 font-bold text-xs">
                         Nombre completo
                     </label>
                     <input
@@ -46,7 +46,7 @@ export default function IdentificationForm({ user }: Props) {
 
                 {/* Correo */}
                 <div className="flex flex-col">
-                    <label className="mb-2 text-gray-700 font-semibold">
+                    <label className="mb-2 text-black font-bold text-xs">
                         Correo electrónico
                     </label>
                     <input
@@ -61,7 +61,7 @@ export default function IdentificationForm({ user }: Props) {
 
                 {/* Teléfono */}
                 <div className="flex flex-col">
-                    <label className="mb-2 text-gray-700 font-semibold">Teléfono</label>
+                    <label className="mb-2 text-black font-bold text-xs">Teléfono</label>
                     <input
                         type="tel"
                         name="phone"
@@ -72,7 +72,7 @@ export default function IdentificationForm({ user }: Props) {
                 </div>
 
                 <div className="flex flex-col">
-                    <label className="mb-2 text-gray-700 font-semibold">
+                    <label className="mb-2 text-gray-700 font-bold text-xs">
                         DNI / Documento
                     </label>
                     <input
@@ -87,7 +87,7 @@ export default function IdentificationForm({ user }: Props) {
                 {/* Botón */}
                 <button
                     type="submit"
-                    className="w-full py-3 mt-4 bg-black text-white font-bold rounded-md hover:bg-gray-800"
+                    className="w-full py-2 mt-4 bg-black text-white font-bold rounded-md hover:bg-white hover:text-black border border-black cursor-pointer transition-colors duration-200 "
                 >
                     Continuar
                 </button>

@@ -26,7 +26,7 @@ const responsive = {
 
 export default function GymBenefitsCarousel() {
     return (
-        <div className="w-full max-w-4xl mx-auto py-10">
+        <div className="w-full max-w-4xl mx-auto py-10 ">
             <h2 className="text-3xl font-bold mb-8 text-center">Beneficios de nuestro gimnasio</h2>
 
             <Carousel
@@ -43,9 +43,9 @@ export default function GymBenefitsCarousel() {
                 {benefits.map((benefit, index) => (
                     <div
                         key={index}
-                        className="flex flex-col items-center justify-center gap-3 bg-white  p-8 h-80 text-center transition-transform duration-300 hover:scale-105"
+                        className="flex flex-col items-center justify-center gap-3  p-8 h-80 text-center transition-transform duration-300 hover:scale-105"
                     >
-                        <div className="text-amber-500">{benefit.icon}</div>
+                        <div className="text-red-700">{benefit.icon}</div>
                         <h3 className="text-xl font-semibold">{benefit.text}</h3>
                         <p className="text-gray-600 text-sm">{benefit.description}</p>
                     </div>

@@ -13,20 +13,18 @@ export default function ChoosePage() {
             toast.error("Por favor, selecciona un plan antes de continuar");
             return;
         }
-        // Navegar a summary si hay plan
         window.location.href = `/checkout/person?plan=${selectedPlan}`;
     };
 
     return (
-        <div className="py-10 px-6 flex flex-col items-center">
+        <div className="flex flex-col items-center px-4 md:px-0">
             {/* Título */}
-            
-            <p className="text-gray-600 text-center max-w-2xl mb-12">
+            <p className="text-gray-500 text-center max-w-2xl text-xs md:text-base my-4 md:mb-12">
                 Escoge el plan que mejor se adapte a tus objetivos y comienza tu entrenamiento hoy mismo.
             </p>
 
             {/* Grid de Planes */}
-            <div className="grid md:grid-cols-3 gap-8 max-w-6xl w-full">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 max-w-3xl w-full">
                 {plans.map((plan) => (
                     <CardPlan
                         key={plan.id}
@@ -44,10 +42,10 @@ export default function ChoosePage() {
             {/* Botón Continuar */}
             <button
                 onClick={handleContinue}
-                className={`mt-12 inline-block rounded-full px-16 py-4 font-bold shadow-lg transition-all duration-300 ease-in-out
-                ${selectedPlan
-                        ? "bg-amber-300 text-black hover:bg-amber-400 hover:scale-105"
-                        : "bg-gray-300 text-gray-600"
+                className={`w-full max-w-xl mx-auto mt-6 py-2 px-6 font-semibold rounded transition-colors cursor-pointer duration-200
+          ${selectedPlan
+                        ? "bg-red-700 text-white hover:bg-white hover:text-black border border-black"
+                        : "bg-gray-200 text-black cursor-not-allowed"
                     }`}
             >
                 Continuar

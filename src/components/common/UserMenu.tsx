@@ -26,7 +26,7 @@ export default function UserMenu() {
                 className="w-44 bg-white border border-gray-200 shadow-md rounded-md"
             >
                 <DropdownMenuLabel className="text-xs text-gray-400 px-2">
-                    User Menu
+                    Menu Usuario
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator className="bg-gray-200" />
 
@@ -35,7 +35,7 @@ export default function UserMenu() {
                     onClick={() => logoutAction()}
                 >
                     <FiLogOut className="w-4 h-4 mr-2" />
-                    Logout
+                    Cerrar sesión
                 </DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>

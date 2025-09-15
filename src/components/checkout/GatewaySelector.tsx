@@ -28,7 +28,6 @@ export default function GatewaySelector({ subscriptionId }: GatewaySelectorProps
             startTransition(async () => {
                 try {
                     const data = await createSubscriptionAction(subscriptionId);
-                    console.log("Data recibida de createSubscriptionAction:", data);
 
                     const initPoint = data?.mpResponse?.init_point;
                     if (initPoint) {
@@ -50,8 +49,6 @@ export default function GatewaySelector({ subscriptionId }: GatewaySelectorProps
 
     return (
         <div className="flex flex-col items-center justify-center p-8 ">
-        
-
             <div className="space-y-8 w-full max-w-sm">
                 {methods.map((method) => (
                     <label
