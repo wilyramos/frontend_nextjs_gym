@@ -18,7 +18,7 @@ export default function LoginForm() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const [isPendingTransition, startTransition] = useTransition();
+    const [isPendingTransition,] = useTransition();
 
 
     const [state, dispatch, isPending] = useActionState(authenticaAction, {

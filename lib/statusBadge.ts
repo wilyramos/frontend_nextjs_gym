@@ -1,43 +1,31 @@
 import { getDaysRemaining } from "./helpers";
 import {
-    FiCheckCircle,
-    FiXCircle,
-    FiClock,
-    FiAlertTriangle,
-    FiSlash,
+  FiCheckCircle,
+  FiXCircle,
+  FiClock,
+  FiAlertTriangle,
+  FiSlash,
 } from "react-icons/fi";
 
+type StatusType =
+  | "ACTIVE"
+  | "EXPIRED"
+  | "PENDING"
+  | "PAST_DUE"
+  | "CANCELED";
 
-export function getStatusBadge(status: string, validTo: string | Date) {
-    const days = getDaysRemaining(validTo);
-
-    switch (status) {
-        case "ACTIVE":
-            return {
-                label: `Activo - ${days} días restantes`,
-                className: "bg-red-700 text-black",
-            };
-        case "PAUSED":
-            return { label: "Pausado", className: "bg-gray-200 text-black" };
-        case "EXPIRED":
-            return { label: "Expirado", className: "bg-black text-white" };
-        default:
-            return { label: "Sin membresía", className: "bg-gray-200 text-black" };
-    }
-}
-
-
-
-
-export function getStatusBadgeLabel(
-  status: "ACTIVE" | "EXPIRED" | "PENDING" | "PAST_DUE" | "CANCELED"
+export function getStatusBadge(
+  status: StatusType,
+  validTo?: string | Date
 ) {
+  const days = validTo ? getDaysRemaining(validTo) : null;
+
   switch (status) {
     case "ACTIVE":
       return {
-        label: "Activo",
+        label: days !== null ? `Activo - ${days} días restantes` : "Activo",
         className:
-          "bg-green-100 text-green-800 border border-green-200 shadow-xs",
+          "bg-green-100 text-green-800 border border-green-200 shadow-sm",
         icon: FiCheckCircle,
       };
 
@@ -69,7 +57,7 @@ export function getStatusBadgeLabel(
       return {
         label: "Cancelado",
         className:
-          "bg-gray-200 text-gray-800 border border-gray-300 shadow-sm",
+          "bg-gray-100 text-gray-800 border border-gray-200 shadow-sm",
         icon: FiSlash,
       };
 

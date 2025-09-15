@@ -2,7 +2,6 @@ import GymBenefitsCarousel from "@/src/components/home/GymBenefitsCarousel";
 import GymHome from "@/src/components/home/GymHome";
 import ListPricing from "@/src/components/home/ListPricing";
 import Footer from "@/src/components/layout/footer";
-import Link from "next/link";
 
 export default function Home() {
     return (

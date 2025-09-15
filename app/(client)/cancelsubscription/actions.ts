@@ -15,11 +15,12 @@ export async function cancelSubscription() {
             cache: "no-store",
         });
         if (!response.ok) {
-            throw new Error("Failed to cancel subscription");
+            const data = await response.json();
+            throw new Error(data.message || "Error cancelling subscription");
         }
         return await response.json();
     } catch (error) {
         console.error("Error cancelling subscription:", error);
-        throw error;
+        throw new Error("Ocurrió un error inesperado");
     }
 }

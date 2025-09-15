@@ -1,3 +1,4 @@
+import Image from "next/image"
 import Link from "next/link"
 
 
@@ -6,10 +7,12 @@ export default function GymHome() {
         <section className="min-h-screen flex flex-col justify-between  md:flex-row items-center px-4 relative">
             {/* Imagen */}
             <div className="w-full md:w-1/3 h-64 md:h-full">
-                <img
+                <Image
                     src="/bg.webp"
                     alt="Fitness background"
                     className="w-full h-full object-cover"
+                    width={500}
+                    height={500}
                 />
             </div>
 
