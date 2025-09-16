@@ -7,14 +7,14 @@ export default async function OverviewPage() {
     const memberships = await getMembershipData();
 
     const quickLinks = [
-        { name: "Change plan", icon: <Users className="w-5 h-5" />, href: "/dashboard/change-plan", disabled: true },
-        { name: "Manage payment method", icon: <CreditCard className="w-5 h-5" />, href: "/dashboard/payments", disabled: false },
-        { name: "Settings", icon: <Settings className="w-5 h-5" />, href: "/dashboard/settings", disabled: true },
+        { name: "Editar perfil", icon: <CreditCard className="w-5 h-5" />, href: "/profile", disabled: false },
+        { name: "Configuración", icon: <Settings className="w-5 h-5" />, href: "/dashboard/settings", disabled: true },
+        { name: "Historial de pagos", icon: <Users className="w-5 h-5" />, href: "/payments", disabled: false }
     ];
 
     return (
         <div>
-            <h1 className="text-3xl font-bold mb-2">Account</h1>
+            <h1 className="text-3xl font-bold mb-2">Cuenta</h1>
             <p className="text-muted-foreground mb-6">Membership Details</p>
 
             <MemberDetails memberships={memberships} />

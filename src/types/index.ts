@@ -102,6 +102,7 @@ export const SubscriptionSchema = z.object({
     externalId: string().nullable().optional(),
     payments: z.array(z.any()).optional(), // luego se enlaza con Payment
     membership: z.any().optional(),        // relación con Membership
+    gateway: z.enum(["MERCADOPAGO", "PAYPAL", "STRIPE"]).optional(),
 });
 export type Subscription = z.infer<typeof SubscriptionSchema>;
 

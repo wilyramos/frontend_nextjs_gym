@@ -10,10 +10,12 @@ import { cancelSubscription } from "@/app/(client)/cancelsubscription/actions";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useRouter } from "next/navigation";
 
 export default function CancelButton() {
     const [isOpen, setIsOpen] = useState(false);
     const [passwordVerified, setPasswordVerified] = useState(false);
+    const router = useRouter();
 
     // Estado para manejar la acción de verificación
     const [state, dispatch, isPending] = useActionState(verifyPassword, {
@@ -39,6 +41,7 @@ export default function CancelButton() {
             toast.success("Suscripción cancelada correctamente");
             setIsOpen(false);
             setPasswordVerified(false);
+            router.push('/memberships'); 
         } catch (error) {
             console.error("Error cancelling subscription:", error);
             toast.error("Ocurrió un error al cancelar la suscripción");

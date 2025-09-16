@@ -14,7 +14,7 @@ export default async function Layout({ children }: { children: React.ReactNode }
             <NavBarUser user={user} />
 
             {/* Contenedor con sidebar + contenido */}
-            <div className="flex flex-1 max-w-5xl mx-auto w-full py-10">
+            <div className="flex flex-1  mx-auto w-full py-10 max-w-5xl" >
                 <Sidebar />
                 <main className="flex-1 px-10 overflow-auto">{children}</main>
             </div>

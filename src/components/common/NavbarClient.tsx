@@ -39,9 +39,9 @@ export default function NavbarClient({ children }: { children: React.ReactNode }
                 ${show ? "translate-y-0" : "-translate-y-full"}
                 ${isHome
                     ? isTop
-                        ? "bg-transparent text-white"
-                        : "bg-red-700 text-black shadow-xs"
-                    : "bg-red-700 text-black shadow-xs"
+                        ? "bg-transparent"
+                        : "bg-red-700 text-gray-400 shadow-xs"
+                    : "bg-red-700 text-gray-400 shadow-xs"
                 }
             `}
         >

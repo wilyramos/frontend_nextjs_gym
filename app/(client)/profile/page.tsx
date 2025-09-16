@@ -18,8 +18,8 @@ export default async function ProfilePage() {
             <div className="flex justify-between items-center mb-6">
 
                 <div>
-                    <h1 className="text-3xl font-bold">Profile</h1>
-                    <p className="text-muted-foreground">Manage your personal information</p>
+                    <h1 className="text-3xl font-bold">Perfil</h1>
+                    <p className="text-muted-foreground">Gestiona tu información personal</p>
                 </div>
                 <EditProfileDialog user={user} />
             </div>

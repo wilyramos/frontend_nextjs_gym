@@ -44,7 +44,7 @@ export default function ChoosePage() {
                 onClick={handleContinue}
                 className={`w-full max-w-xl mx-auto mt-6 py-2 px-6 font-semibold rounded transition-colors cursor-pointer duration-200
           ${selectedPlan
-                        ? "bg-red-700 text-white hover:bg-white hover:text-black border border-black"
+                        ? "bg-red-700 hover:text-black border-2 border-red-700"
                         : "bg-gray-200 text-black cursor-not-allowed"
                     }`}
             >

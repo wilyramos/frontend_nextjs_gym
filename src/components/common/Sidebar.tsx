@@ -5,15 +5,13 @@ import { usePathname } from "next/navigation";
 import {
     FiHome,
     FiUser,
-    FiCreditCard,
-    FiSettings,
+    FiCreditCard
 } from "react-icons/fi";
 import {
     FaHome,
     FaUser,
     FaCreditCard,
-    FaDumbbell,
-    FaCog,
+    FaDumbbell
 } from "react-icons/fa";
 import { GiWeightLiftingUp } from "react-icons/gi"; // dumbbell outline
 
@@ -44,12 +42,6 @@ export default function Sidebar() {
             href: "/payments",
             icon: FiCreditCard,
             iconFill: FaCreditCard,
-        },
-        {
-            name: "Configuración",
-            href: "/settings",
-            icon: FiSettings,
-            iconFill: FaCog,
         },
     ];
 

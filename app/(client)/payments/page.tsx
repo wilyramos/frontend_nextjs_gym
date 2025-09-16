@@ -23,7 +23,7 @@ export default async function PaymentsPage() {
     return (
         <div>
             <h1 className="mb-2 text-3xl font-bold text-gray-900 dark:text-gray-100">
-                Payments
+                Pagos
             </h1>
             <p className="mb-6 text-gray-500 dark:text-gray-400">
                 Historial de tus pagos

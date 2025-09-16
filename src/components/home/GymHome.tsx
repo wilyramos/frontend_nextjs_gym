@@ -16,15 +16,15 @@ export default function GymHome() {
                 />
             </div>
 
-            <div className="absolute inset-0 bg-black/80" />
+            <div className="absolute inset-0" />
 
             {/* Contenido de texto */}
             <div className="w-full md:w-1/2 flex flex-col justify-center items-start text-left p-8 relative z-10">
-                <h1 className="text-5xl md:text-6xl font-bold text-white mb-6 leading-tight">
+                <h1 className="text-5xl md:text-6xl font-bold  mb-6 leading-tight">
                     Transforma tu cuerpo, <br /> Eleva tu mente
                 </h1>
 
-                <p className="text-lg text-gray-200 mb-8">
+                <p className="text-lg mb-8">
                     Únete a nuestra comunidad y alcanza tus objetivos de fitness con
                     planes personalizados y seguimiento experto.
                 </p>
@@ -38,7 +38,7 @@ export default function GymHome() {
                     </Link>
                     <Link
                         href="/pricing"
-                        className="px-3 py-2 rounded-xl border border-red-700 text-white font-medium hover:bg-red-600 hover:text-black transition"
+                        className="px-3 py-2 rounded-xl border border-red-700 font-medium hover:bg-red-600 hover:text-black transition"
                     >
                         Más información
                     </Link>

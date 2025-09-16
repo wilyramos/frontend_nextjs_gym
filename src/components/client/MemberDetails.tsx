@@ -18,12 +18,14 @@ export default function MemberDetails({ memberships }: Props) {
     }
 
     const membershipStatus =
-        membership.subscription?.status === "ACTIVE" ? "Activa" : "Inactiva";
+        membership.status === "EXPIRED" ? "Expirada" : membership.status === "PAUSED" ? "Pausada" : "Activa";
 
     const membershipStatusColor =
-        membership.subscription?.status === "ACTIVE"
-            ? "text-green-600 dark:text-green-400"
-            : "text-red-600 dark:text-red-400";
+        membership.status === "EXPIRED"
+            ? "text-red-600 dark:text-red-400"
+            : membership.status === "PAUSED"
+                ? "text-yellow-600 dark:text-yellow-400"
+                : "text-green-600 dark:text-green-400";
 
     const daysRemaining = getDaysRemaining(membership.validTo);
 

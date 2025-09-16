@@ -30,7 +30,7 @@ export default async function MembershipsPage() {
 
     return (
         <section>
-            <h1 className="text-3xl font-semibold mb-2">Membresías</h1>
+            <h1 className="text-3xl font-bold mb-2">Membresías</h1>
             <p className="text-muted-foreground mb-6">Detalles de tu plan</p>
 
             {/* Membership Card */}
@@ -67,7 +67,7 @@ export default async function MembershipsPage() {
 
                     <div className="flex items-center gap-2">
                         <CreditCard className="w-5 h-5 text-primary" />
-                        <span>**** **** **** 1234</span>
+                        <span>{membership.subscription?.gateway}</span>
                     </div>
                 </div>
 
@@ -88,17 +88,17 @@ export default async function MembershipsPage() {
                         href="/cancelsubscription"
                         className="flex items-center gap-3 p-4 hover:bg-accent transition"
                     >
-                        <XCircle className="w-6 h-6 text-red-600" />
+                        <XCircle className="w-6 h-6" />
                         <div>
                             <p className="">Cancelar suscripción</p>
                         </div>
                     </Link>
                 ) : (
                     <Link
-                        href="/reactivatesubscription"
+                        href="/checkout/choose"
                         className="flex items-center gap-3 p-4 hover:bg-accent transition"
                     >
-                        <CheckCircle className="w-6 h-6 text-green-600" />
+                        <CheckCircle className="w-6 h-6" />
                         <div>
                             <p className="">Reactivar suscripción</p>
                         </div>

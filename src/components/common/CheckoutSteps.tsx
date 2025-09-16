@@ -33,7 +33,7 @@ export default function CheckoutSteps() {
                                 {i + 1}
                             </div>
                             <span
-                                className={`mt-2 text-sm ${active || done ? "text-black font-medium" : "text-gray-600"
+                                className={`mt-2 text-sm ${active || done ? " font-medium" : "text-gray-600"
                                     }`}
                             >
                                 {done ? <Link href={step.path}>{step.label}</Link> : step.label}
