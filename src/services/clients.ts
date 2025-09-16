@@ -4,8 +4,8 @@ import type { TPaginatedUsers } from "../types";
 
 
 type GetUsersParams = {
-    page?: number;
-    limit?: number;
+    page?: string;
+    limit?: string;
     search?: string;
     status?: string;
 };
@@ -23,7 +23,6 @@ export async function getUsers(params: GetUsersParams = {}): Promise<TPaginatedU
         if (params.status) query.append("status", params.status);
 
         const url = `${process.env.API_URL}/users?${query.toString()}`;
-        console.log("la urlr", url)
 
         const response = await fetch(url, {
             headers: {
@@ -33,7 +32,6 @@ export async function getUsers(params: GetUsersParams = {}): Promise<TPaginatedU
         });
 
         const data: TPaginatedUsers = await response.json();
-        console.log("Fetched users:", data);
         return data;
 
     } catch (error) {

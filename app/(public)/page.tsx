@@ -10,14 +10,12 @@ export default function Home() {
 
             <section>
                 <GymHome />
-
             </section>
             {/* Precios */}
-            <section className="flex flex-col justify-center items-center text-center px-4 py-10">
+            <section className="flex flex-col justify-center items-center text-center px-4 py-5">
                 <h2 className="text-4xl font-bold text-center text-black ">
                     Membresias
                 </h2>
-
                 <ListPricing />
             </section>
 

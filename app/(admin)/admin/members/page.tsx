@@ -2,20 +2,18 @@ import Pagination from "@/src/components/common/Pagination";
 import MembersTable from "@/src/components/tables/MembersTable";
 import { getUsers } from "@/src/services/clients";
 
-type SearchParams = {
+type SearchParams = Promise<{
     query?: string;
     page?: string;   // vienen como string desde la URL
     limit?: string;
-};
+}>;
 
 export default async function ClientesPage({
     searchParams,
 }: {
     searchParams: SearchParams;
 }) {
-    const page = Number(searchParams.page) || 1;
-    const limit = Number(searchParams.limit) || 10;
-    const query = searchParams.query ?? "";
+    const { query = "", page = "1", limit = "10" } = await searchParams;
 
     const users = await getUsers({
         page,
@@ -32,7 +30,7 @@ export default async function ClientesPage({
 
             {/* Paginación */}
             <Pagination
-                currentPage={page}
+                currentPage={Number(page)}
                 totalPages={users.totalPages}
                 pathname="/admin/members"
             />
