@@ -1,4 +1,3 @@
-// src/components/navbar/NavbarClient.tsx
 "use client";
 
 import { useEffect, useState } from "react";
@@ -23,9 +22,7 @@ export default function NavbarClient({ children }: { children: React.ReactNode }
                 setShow(true);
             }
 
-            // Saber si estamos arriba
             setIsTop(currentScrollY === 0);
-
             setLastScrollY(currentScrollY);
         };
 
@@ -36,14 +33,17 @@ export default function NavbarClient({ children }: { children: React.ReactNode }
     return (
         <nav
             className={`fixed top-0 left-0 w-full z-50 transition-all duration-300
-                ${show ? "translate-y-0" : "-translate-y-full"}
-                ${isHome
+        ${show ? "translate-y-0" : "-translate-y-full"}
+        ${isHome
                     ? isTop
+                        // Home en la parte superior → transparente
                         ? "bg-transparent"
-                        : "bg-red-700 text-gray-400 shadow-xs"
-                    : "bg-red-700 text-gray-400 shadow-xs"
+                        // Home scrolleada → color dependiente del tema
+                        : "bg-white/90 dark:bg-gray-900/90 shadow"
+                    // Otras rutas → color dependiente del tema
+                    : "bg-white/90 dark:bg-gray-900/90 shadow"
                 }
-            `}
+      `}
         >
             {children}
         </nav>

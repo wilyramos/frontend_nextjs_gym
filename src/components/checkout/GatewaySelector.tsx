@@ -3,6 +3,7 @@
 import { useState, useTransition } from "react";
 import { createSubscriptionAction } from "@/app/(public)/checkout/actions";
 import { toast } from "sonner";
+import { Button } from "@/components/ui/button";
 
 type GatewaySelectorProps = {
     subscriptionId: number;
@@ -28,8 +29,8 @@ export default function GatewaySelector({ subscriptionId }: GatewaySelectorProps
             startTransition(async () => {
                 try {
                     const data = await createSubscriptionAction(subscriptionId);
-
                     const initPoint = data?.mpResponse?.init_point;
+
                     if (initPoint) {
                         toast.success("Redirigiendo a MercadoPago...");
                         window.location.href = initPoint;
@@ -48,40 +49,53 @@ export default function GatewaySelector({ subscriptionId }: GatewaySelectorProps
     };
 
     return (
-        <div className="flex flex-col items-center justify-center p-8 ">
+        <div className="flex flex-col items-center justify-center p-8">
             <div className="space-y-8 w-full max-w-sm">
-                {methods.map((method) => (
-                    <label
-                        key={method.id}
-                        className={`flex items-center gap-3 p-3 border rounded-lg transition 
-                            ${selected === method.id ? "border-black bg-gray-100" : "border-gray-300"} 
-                            ${method.disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}
-                        `}
-                    >
-                        <input
-                            type="radio"
-                            name="payment"
-                            value={method.id}
-                            checked={selected === method.id}
-                            onChange={() => !method.disabled && setSelected(method.id)}
-                            disabled={method.disabled}
-                            className="h-4 w-4 accent-black"
-                        />
-                        <span className="text-gray-900">{method.name}</span>
-                        {method.disabled && (
-                            <span className="ml-auto text-xs text-gray-500">(Próximamente)</span>
-                        )}
-                    </label>
-                ))}
+                {methods.map((method) => {
+                    const isActive = selected === method.id;
+                    return (
+                        <label
+                            key={method.id}
+                            className={`flex items-center gap-3 p-3 rounded-lg border transition-colors
+                ${isActive
+                                    ? "border-gray-900 bg-gray-100 dark:border-gray-100 dark:bg-gray-800"
+                                    : "border-gray-300 dark:border-gray-600"
+                                }
+                ${method.disabled
+                                    ? "opacity-50 cursor-not-allowed"
+                                    : "cursor-pointer"
+                                }
+              `}
+                        >
+                            <input
+                                type="radio"
+                                name="payment"
+                                value={method.id}
+                                checked={isActive}
+                                onChange={() => !method.disabled && setSelected(method.id)}
+                                disabled={method.disabled}
+                                className="h-4 w-4 accent-gray-900 dark:accent-gray-100"
+                            />
+                            <span className="text-gray-900 dark:text-gray-100">
+                                {method.name}
+                            </span>
+                            {method.disabled && (
+                                <span className="ml-auto text-xs text-gray-500 dark:text-gray-400">
+                                    (Próximamente)
+                                </span>
+                            )}
+                        </label>
+                    );
+                })}
             </div>
 
-            <button
+            <Button
                 onClick={handleSubmit}
                 disabled={isPending || !selected}
-                className="mt-6 w-full max-w-sm bg-black text-white py-2 px-4 rounded-lg hover:bg-gray-800 transition disabled:opacity-50"
+                className="mt-8 w-full max-w-sm"
             >
                 {isPending ? "Procesando..." : "Pagar suscripción"}
-            </button>
+            </Button>
         </div>
     );
 }

@@ -7,13 +7,13 @@ import { registerAction } from "@/app/(public)/auth/actions";
 import Spinner from "../common/Spinner";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
 
 export default function RegisterForm() {
-
     const searchParams = useSearchParams();
-    const redirectTo = searchParams.get("redirectTo");
-
+    const redirectTo = searchParams.get("redirectTo") ?? "";
 
     const [name, setName] = useState("");
     const [password, setPassword] = useState("");
@@ -28,80 +28,73 @@ export default function RegisterForm() {
         if (state.errors.length > 0) {
             state.errors.forEach((err) => toast.error(err));
         }
-
+        if (state.success) toast.success(state.success);
     }, [state]);
 
     return (
-        <form action={dispatch} className="space-y-5 max-w-md mx-auto">
-            {/* Email */}
-            <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Correo electrónico
-                </label>
-                <input
-                    type="email"
-                    value={email}
+        <form action={dispatch} className="space-y-6 max-w-md mx-auto">
+            {/* Correo electrónico */}
+            <div className="space-y-2">
+                <Label htmlFor="email">Correo electrónico</Label>
+                <Input
+                    id="email"
                     name="email"
+                    type="email"
+                    placeholder="tucorreo@ejemplo.com"
+                    value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Tu correo electrónico"
-                    className="w-full border border-gray-300 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
+                    required
                 />
             </div>
 
             {/* Nombre */}
-            <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Nombre
-                </label>
-                <input
-                    type="text"
-                    value={name}
+            <div className="space-y-2">
+                <Label htmlFor="name">Nombre</Label>
+                <Input
+                    id="name"
                     name="name"
-                    onChange={(e) => setName(e.target.value)}
+                    type="text"
                     placeholder="Tu nombre"
-                    className="w-full border border-gray-300 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    required
                 />
             </div>
 
             {/* Contraseña */}
-            <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Contraseña
-                </label>
-                <input
-                    type="password"
-                    value={password}
+            <div className="space-y-2">
+                <Label htmlFor="password">Contraseña</Label>
+                <Input
+                    id="password"
                     name="password"
-                    onChange={(e) => setPassword(e.target.value)}
+                    type="password"
                     placeholder="********"
-                    className="w-full border border-gray-300 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
                 />
             </div>
 
-            {/* Botones */}
-            <div className="flex justify-between items-center">
+            {/* Redirección oculta */}
+            <input type="hidden" name="redirectTo" value={redirectTo} />
 
+            {/* Botón de registro */}
+            <Button
+                type="submit"
+                disabled={isPending}
+                className="w-full flex justify-center"
+            >
+                {isPending ? <Spinner /> : "Registrarme"}
+            </Button>
 
-                <button
-                    type="submit"
-                    disabled={isPending}
-                    className="bg-black text-white py-2 px-4 rounded-md hover:bg-gray-800 flex items-center justify-center h-10 w-30"
-                >
-                    {isPending ? <Spinner /> : "Registrarme"}
-                </button>
-            </div>
-
-            <div>
-
+            {/* Link a login */}
+            <div className="text-sm text-muted-foreground text-center">
                 <Link
-                    href={
-                        `/auth/login${redirectTo ? `?redirectTo=${redirectTo}` : ""}`
-                    }
-                    className="text-sm text-gray-600 hover:underline"
+                    href={`/auth/login${redirectTo ? `?redirectTo=${redirectTo}` : ""}`}
+                    className="hover:underline"
                 >
                     ¿Ya tienes una cuenta? Inicia sesión
                 </Link>
-
             </div>
         </form>
     );

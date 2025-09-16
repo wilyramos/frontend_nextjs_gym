@@ -21,27 +21,46 @@ export default function CheckoutSteps() {
 
                 return (
                     <div key={step.path} className="flex flex-1 items-center">
+                        {/* Línea izquierda */}
                         {i > 0 && (
-                            <div className={`h-px flex-1 ${done ? "bg-black" : "bg-gray-600"}`} />
+                            <div
+                                className={`h-px flex-1 transition-colors ${done
+                                        ? "bg-gray-900 dark:bg-gray-100"
+                                        : "bg-gray-300 dark:bg-gray-700"
+                                    }`}
+                            />
                         )}
 
+                        {/* Círculo + label */}
                         <div className="flex flex-col items-center">
                             <div
-                                className={`flex h-6 w-6 items-center justify-center rounded-full text-white text-xs font-bold ${done || active ? "bg-black" : "bg-gray-600"
+                                className={`flex h-6 w-6 items-center justify-center rounded-full text-xs font-bold transition-colors
+                  ${done || active
+                                        ? "bg-gray-900 text-white dark:bg-gray-100 dark:text-black"
+                                        : "bg-gray-300 text-gray-800 dark:bg-gray-700 dark:text-gray-200"
                                     }`}
                             >
                                 {i + 1}
                             </div>
+
                             <span
-                                className={`mt-2 text-sm ${active || done ? " font-medium" : "text-gray-600"
+                                className={`mt-2 text-sm transition-colors ${active || done
+                                        ? "font-medium text-gray-900 dark:text-gray-100"
+                                        : "text-gray-500 dark:text-gray-400"
                                     }`}
                             >
                                 {done ? <Link href={step.path}>{step.label}</Link> : step.label}
                             </span>
                         </div>
 
+                        {/* Línea derecha */}
                         {i < steps.length - 1 && (
-                            <div className={`h-px flex-1 ${done ? "bg-black" : "bg-gray-600"}`} />
+                            <div
+                                className={`h-px flex-1 transition-colors ${done
+                                        ? "bg-gray-900 dark:bg-gray-100"
+                                        : "bg-gray-300 dark:bg-gray-700"
+                                    }`}
+                            />
                         )}
                     </div>
                 );

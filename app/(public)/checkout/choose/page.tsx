@@ -4,6 +4,7 @@ import { useState } from "react";
 import plans from "@/src/data/subscriptionPlans.json";
 import CardPlan from "@/src/components/checkout/CardPlan";
 import { toast } from "sonner";
+import { Button } from "@/components/ui/button";
 
 export default function ChoosePage() {
     const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
@@ -19,12 +20,12 @@ export default function ChoosePage() {
     return (
         <div className="flex flex-col items-center px-4 md:px-0">
             {/* Título */}
-            <p className="text-gray-500 text-center max-w-2xl text-xs md:text-base my-4 md:mb-12">
+            <p className="text-gray-500 text-center max-w-2xl text-sm md:text-base my-4 md:mb-10">
                 Escoge el plan que mejor se adapte a tus objetivos y comienza tu entrenamiento hoy mismo.
             </p>
 
             {/* Grid de Planes */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 max-w-3xl w-full">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 max-w-4xl w-full">
                 {plans.map((plan) => (
                     <CardPlan
                         key={plan.id}
@@ -39,17 +40,18 @@ export default function ChoosePage() {
                 ))}
             </div>
 
-            {/* Botón Continuar */}
-            <button
+            {/* Botón Continuar con shadcn/ui */}
+            <Button
                 onClick={handleContinue}
-                className={`w-full max-w-xl mx-auto mt-6 py-2 px-6 font-semibold rounded transition-colors cursor-pointer duration-200
+                disabled={!selectedPlan}
+                className={`w-full max-w-md mt-8 py-6 text-lg font-semibold
           ${selectedPlan
-                        ? "bg-red-700 hover:text-black border-2 border-red-700"
-                        : "bg-gray-200 text-black cursor-not-allowed"
+                        ? "bg-red-700 hover:bg-red-800 text-white"
+                        : "bg-gray-300 text-gray-700"
                     }`}
             >
                 Continuar
-            </button>
+            </Button>
         </div>
     );
 }

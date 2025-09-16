@@ -13,7 +13,7 @@ export default async function PersonPage() {
 
     return (
         <div className="max-w-lg mx-auto px-6 rounded-xl p-2 ">
-            <h1 className="text-xl font-semibold text-center mb-8 text-gray-900">
+            <h1 className="text-xl font-semibold text-center mb-8">
                 Información Personal
             </h1>
 

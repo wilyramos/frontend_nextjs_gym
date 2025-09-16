@@ -7,11 +7,8 @@ type SearchParams = Promise<{
 
 export default async function PaymentPage({ searchParams }: { searchParams: SearchParams }) {
     const { plan } = await searchParams;
-
-    console.log("PaymentPage received plan:", plan);
     // Crear la suscripción en el servidor
     const subscription = await createSubscription({ plan });
-    console.log("Suscripción creada en PaymentPage:", subscription);
 
     if (!subscription) {
         return (
