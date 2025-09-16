@@ -21,7 +21,7 @@ export default async function Navbar() {
                 <div className="flex items-center gap-4">
                     <Link
                         href={token ? "/profile" : "/auth/login"}
-                        className="border p-1 rounded transition
+                        className="border p-2 rounded-md transition
                        hover:bg-gray-200 hover:text-black
                        dark:hover:bg-gray-700 dark:hover:text-white"
                         aria-label={token ? "Perfil de usuario" : "Ir a login"}
