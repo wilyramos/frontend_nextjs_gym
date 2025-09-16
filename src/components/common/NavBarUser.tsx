@@ -9,15 +9,11 @@ export default function NavBarUser({ user }: { user: { name: string } | null }) 
                 <Logo />
             </div>
 
-            <div>
 
-                <div className="flex gap-2 text-center items-center">
-                    <p className="text-md ">Hola, {user?.name || "Usuario"}</p>
-                    <UserMenu />
-                    <ThemeToggle />
-                </div>
-
-               
+            <div className="flex gap-2 text-center items-center">
+                <p className="text-xs md:text-md">Hola, {user?.name || "Usuario"}</p>
+                <UserMenu />
+                <ThemeToggle />
             </div>
         </header>
     )
