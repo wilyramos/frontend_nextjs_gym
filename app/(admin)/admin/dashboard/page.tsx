@@ -1,19 +1,38 @@
-import React from "react";
 
-export default function DashboardPage() {
+//File: frontend/app/(admin)/admin/dashboard/page.tsx
+
+import { getDashboardMetrics } from "@/src/services/reports";
+import getToken from "@/src/auth/token";
+
+
+
+
+export default async function DashboardPage() {
+
+    const data = await getDashboardMetrics();
+
+    console.log(data);
+
+
     return (
-        <div className="p-6">
-            <h1 className="text-2xl font-bold mb-6">Admin Dashboard</h1>
+        <section className="p-8">
 
-            {/* Grid de estadísticas */}
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-                {/* Clientes activos */}
-                <div className="bg-white rounded-xl shadow-sm p-4">
-                    <p className="text-sm text-gray-500">Clientes activos</p>
-                    <h2 className="text-2xl font-bold text-indigo-600">152</h2>
+            <h1 className="text-2xl font-bold mb-4">Dashboard</h1>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="bg-white shadow rounded-lg p-6">
+                    <h2 className="text-lg font-semibold mb-2"> Active Members</h2>
+                    <p className="text-3xl">{data.activeUsers}</p>
+                </div>
+                <div className="bg-white shadow rounded-lg p-6">
+                    <h2 className="text-lg font-semibold mb-2">Expiring Memberships</h2>
+                    <p className="text-3xl">{data.expiringMemberships}</p>
                 </div>
 
+                <div className="bg-white shadow rounded-lg p-6">
+                    <h2 className="text-lg font-semibold mb-2">Total Income</h2>
+                    <p className="text-3xl">{data.totalIncome}</p>
+                </div>
             </div>
-        </div>
+        </section>
     );
 }

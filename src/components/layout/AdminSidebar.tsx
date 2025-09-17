@@ -64,12 +64,12 @@ function SidebarLink({
         >
             <Icon className="h-5 w-5" aria-hidden="true" />
             {expanded && (
-                <span className="text-[10px] font-medium leading-tight truncate">
+                <span className="text-xs font-medium leading-tight truncate">
                     {label}
                 </span>
             )}
             {!expanded && (
-                <span className="absolute left-full ml-2 rounded bg-popover text-popover-foreground shadow text-[10px] px-2 py-1 opacity-0 group-hover:opacity-100 transition whitespace-nowrap">
+                <span className="absolute left-full ml-2 rounded bg-popover text-popover-foreground shadow text-xs px-2 py-1 opacity-0 group-hover:opacity-100 transition whitespace-nowrap">
                     {label}
                 </span>
             )}
@@ -85,7 +85,7 @@ export default function GymSidebar() {
         <aside
             className={cn(
                 "h-screen flex flex-col border-r bg-background transition-all duration-300 group/sidebar",
-                expanded ? "w-36" : "w-20"
+                expanded ? "w-24" : "w-20"
             )}
             role="navigation"
             aria-label="Sidebar"
