@@ -18,3 +18,13 @@ export function formatDate(dateString: string): string {
         timeZone: "America/Lima",
     });
 }
+
+export function formatDateOnly(dateString: string): string {
+    const date = new Date(dateString);
+    return date.toLocaleDateString("es-ES", {
+        year: "numeric",
+        month: "short",
+        day: "2-digit",
+        timeZone: "America/Lima",
+    });
+}

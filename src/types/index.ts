@@ -157,7 +157,7 @@ const membershipBaseSchema = z.object({
 export const membershipSchema = membershipBaseSchema.extend({
     id: z.number().int().positive(),
     user: UserSchema.optional(),
-    subscription: SubscriptionSchema.nullable(),
+    subscription: SubscriptionSchema.nullable().optional(),
 });
 
 export const MembershipArraySchema = z.array(membershipSchema);
@@ -178,3 +178,14 @@ export type Membership = z.infer<typeof membershipSchema>;
 export type MembershipArray = z.infer<typeof MembershipArraySchema>;
 export type MembershipCreateInput = z.infer<typeof membershipCreateSchema>;
 export type MembershipUpdateInput = z.infer<typeof membershipUpdateSchema>;
+
+// User with memberships whit pagination
+
+export const UserWithMembershipsSchema = UserSchema.extend({
+    memberships: z.array(membershipSchema).optional(),
+});
+
+export const PaginatedUsersWithMembershipsSchema = createPaginatedSchema(UserWithMembershipsSchema);
+
+export type TUserWithMemberships = z.infer<typeof UserWithMembershipsSchema>;
+export type TPaginatedUsersWithMemberships = z.infer<typeof PaginatedUsersWithMembershipsSchema>;

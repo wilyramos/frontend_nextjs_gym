@@ -34,6 +34,7 @@ export async function verifyPassword(prevState: PrevStateProps, formData: FormDa
             success: "Contraseña verificada correctamente",
         }
     } catch (error) {
+        console.error("Error verifying password:", error);
         return { errors: ["Ocurrió un error inesperado"], success: "" };
     }
 }

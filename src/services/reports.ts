@@ -1,8 +1,7 @@
 import "server-only";
 
 import getToken from "../auth/token";
-import { MembershipArraySchema } from "@/src/types";
-import { DashboardSchema, type TDashboard } from "@/src/types/dashboard";
+import { DashboardSchema } from "@/src/types/dashboard";
 
 export async function getDashboardMetrics() {
 

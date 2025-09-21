@@ -1,38 +1,96 @@
-
-//File: frontend/app/(admin)/admin/dashboard/page.tsx
-
+// File: frontend/app/(admin)/admin/dashboard/page.tsx
 import { getDashboardMetrics } from "@/src/services/reports";
-import getToken from "@/src/auth/token";
+import {
+    Table,
+    TableHeader,
+    TableBody,
+    TableRow,
+    TableHead,
+    TableCell,
+} from "@/src/components/tables/Table";
+export const dynamic = 'force-dynamic';
 
 
+interface MetricCardProps {
+    title: string;
+    value: number | string;
+}
 
+const activities = [
+    { id: 1, description: "Usuario Juan Pérez se registró", date: "2024-10-01", user: "Juan Pérez" },
+    { id: 2, description: "Membresía de Ana Gómez expira pronto", date: "2024-10-02", user: "Ana Gómez" },
+    { id: 3, description: "Pago recibido de Carlos López", date: "2024-10-03", user: "Carlos López" },
+];
+
+function MetricCard({ title, value }: MetricCardProps) {
+    return (
+        <div className="rounded-xl border-l-4 border-blue-500 bg-white p-4 text-center shadow">
+            <h2 className="mb-1 text-gray-700 font-semibold">{title}</h2>
+            <p className="text-2xl font-bold text-blue-600">{value}</p>
+        </div>
+    );
+}
+
+function Section({ title, children }: { title: string; children: React.ReactNode }) {
+    return (
+        <section className="p-8 space-y-4">
+            <h2 className="text-2xl font-bold">{title}</h2>
+            {children}
+        </section>
+    );
+}
 
 export default async function DashboardPage() {
-
     const data = await getDashboardMetrics();
 
-    console.log(data);
-
-
     return (
-        <section className="p-8">
+        <>
+            <Section title="Panel de Administración">
+                <div className="grid gap-6 md:grid-cols-3">
+                    <MetricCard title="Usuarios Activos" value={data.activeUsers} />
+                    <MetricCard title="Membresías a Punto de Expirar (7 días)" value={data.expiringMemberships} />
+                    <MetricCard title="Total de Ingresos" value={data.totalIncome} />
+                </div>
+            </Section>
 
-            <h1 className="text-2xl font-bold mb-4">Dashboard</h1>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="bg-white shadow rounded-lg p-6">
-                    <h2 className="text-lg font-semibold mb-2"> Active Members</h2>
-                    <p className="text-3xl">{data.activeUsers}</p>
+            <Section title="Resumen de Actividades Recientes">
+                <div className="rounded-lg bg-white p-6 shadow">
+                    <Table>
+                        <TableHeader>
+                            <TableRow>
+                                <TableHead>Descripción</TableHead>
+                                <TableHead>Fecha</TableHead>
+                                <TableHead>Usuario</TableHead>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                            {activities.map(a => (
+                                <TableRow key={a.id}>
+                                    <TableCell>{a.description}</TableCell>
+                                    <TableCell>{a.date}</TableCell>
+                                    <TableCell>{a.user}</TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
                 </div>
-                <div className="bg-white shadow rounded-lg p-6">
-                    <h2 className="text-lg font-semibold mb-2">Expiring Memberships</h2>
-                    <p className="text-3xl">{data.expiringMemberships}</p>
-                </div>
+            </Section>
 
-                <div className="bg-white shadow rounded-lg p-6">
-                    <h2 className="text-lg font-semibold mb-2">Total Income</h2>
-                    <p className="text-3xl">{data.totalIncome}</p>
-                </div>
-            </div>
-        </section>
+            <Section title="Enlaces Rápidos">
+                <ul className="list-disc pl-5 space-y-1">
+                    {[
+                        { href: "/admin/users", label: "Gestión de Usuarios" },
+                        { href: "/admin/memberships", label: "Gestión de Membresías" },
+                        { href: "/admin/reports", label: "Informes" },
+                    ].map(link => (
+                        <li key={link.href}>
+                            <a href={link.href} className="text-blue-600 hover:underline">
+                                {link.label}
+                            </a>
+                        </li>
+                    ))}
+                </ul>
+            </Section>
+        </>
     );
 }

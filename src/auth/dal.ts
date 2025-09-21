@@ -5,8 +5,7 @@ import "server-only"
 import { cookies } from "next/headers"
 import { redirect } from "next/navigation"
 import { UserSchema } from "../types"
-import { cache } from "react" // 
-import getToken from "./token"
+import { cache } from "react"; // 
 
 // Cache: para evitar que se haga la peticion cada vez que se renderiza el componente
 
