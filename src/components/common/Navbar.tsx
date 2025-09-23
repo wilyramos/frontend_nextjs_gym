@@ -4,7 +4,7 @@ import NavbarClient from "./NavbarClient";
 import Logo from "./Logo";
 import { ThemeToggle } from "./ThemeToggle";
 import getToken from "@/src/auth/token";
-import { FaUser } from "react-icons/fa";
+import { FaRegUser } from "react-icons/fa";
 
 export default async function Navbar() {
     const token = await getToken();
@@ -26,7 +26,7 @@ export default async function Navbar() {
                        dark:hover:bg-gray-700 dark:hover:text-white"
                         aria-label={token ? "Perfil de usuario" : "Ir a login"}
                     >
-                        {token ? <FaUser className="w-5 h-5" /> : "Login"}
+                        {token ? <FaRegUser className="w-4 h-4" /> : "Login"}
                     </Link>
 
                     <ThemeToggle />

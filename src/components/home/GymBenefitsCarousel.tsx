@@ -27,7 +27,7 @@ const responsive = {
 export default function GymBenefitsCarousel() {
     return (
         <div className="w-full max-w-4xl mx-auto py-10 ">
-            <h2 className="text-3xl font-bold mb-8 text-center">Beneficios de nuestro gimnasio</h2>
+            <h2 className="text-xl font-bold mb-8 text-center text-gray-600">Beneficios de nuestro gimnasio</h2>
 
             <Carousel
                 responsive={responsive}

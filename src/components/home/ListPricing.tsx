@@ -6,7 +6,7 @@ export default function ListPricing() {
     return (
         <section className="py-16">
             <div className="max-w-7xl mx-auto px-6 text-center">
-                <div className="flex flex-col md:flex-row gap-8 justify-center">
+                <div className="flex flex-col md:flex-row gap-2 justify-center">
                     {subscriptionPlans.map((plan) => (
                         <article
                             key={plan.id}
@@ -16,26 +16,26 @@ export default function ListPricing() {
                                 }`}
                         >
                             {plan.popular && (
-                                <div className="absolute top-0 left-1/2 -translate-x-1/2 bg-amber-500 text-black text-sm font-semibold px-4 py-1 rounded-b-md">
+                                <div className="absolute top-0 left-1/2 -translate-x-1/2 bg-red-500 text-black text-sm font-semibold px-4 py-1 rounded-b-md">
                                     Más Popular
                                 </div>
                             )}
 
-                            <div className="p-8 flex flex-col h-full">
-                                <div className="mb-6">
-                                    <h2 className="text-2xl font-bold text-gray-900 mb-2">
+                            <div className="p-4 flex flex-col">
+                                <div className="mb-2">
+                                    <h2 className="text-lg font-bold text-gray-900 my-4">
                                         {plan.name}
                                     </h2>
-                                    <p className="text-3xl font-extrabold text-gray-900">
+                                    <p className="text-xl font-extrabold text-gray-900">
                                         PEN {plan.price}
-                                        <span className="text-base text-gray-500"> /{plan.duration}</span>
+                                        <span className=" text-gray-500 text-xs"> /{plan.duration}</span>
                                     </p>
                                 </div>
 
-                                <ul className="flex-1 space-y-4 text-gray-700 text-left">
+                                <ul className="flex-1 space-y-2 text-gray-700 text-left text-xs">
                                     {plan.features.map((feature: string, idx: number) => (
                                         <li key={idx} className="flex items-start gap-3">
-                                            <AiOutlineCheck className="text-amber-400 w-5 h-5 mt-0.5" />
+                                            <AiOutlineCheck className="text-red-700 w-5 h-5 mt-0.5" />
                                             <span>{feature}</span>
                                         </li>
                                     ))}
@@ -44,13 +44,6 @@ export default function ListPricing() {
                         </article>
                     ))}
                 </div>
-
-                <Link
-                    href="/checkout/choose"
-                    className="mt-12 inline-block bg-amber-400 hover:bg-amber-500 text-black font-bold py-3 px-12 rounded-xl shadow transition-colors"
-                >
-                    Inscribirme
-                </Link>
             </div>
         </section>
     );
