@@ -24,9 +24,8 @@ export default function Pagination({
 
     if (totalPages <= 1) return null;
 
-    // Build a compact list of pages to show
     const pages: (number | string)[] = [];
-    const maxVisible = 7; // total buttons including ellipsis
+    const maxVisible = 7;
 
     if (totalPages <= maxVisible) {
         for (let i = 1; i <= totalPages; i++) pages.push(i);
@@ -36,9 +35,7 @@ export default function Pagination({
 
         pages.push(1);
         if (left > 2) pages.push("…");
-
         for (let i = left; i <= right; i++) pages.push(i);
-
         if (right < totalPages - 1) pages.push("…");
         pages.push(totalPages);
     }
@@ -46,23 +43,25 @@ export default function Pagination({
     return (
         <div className="flex justify-center mt-10">
             <nav
-                className="inline-flex items-center gap-1 rounded-xl bg-white/70 shadow ring-1 ring-gray-200 backdrop-blur-md p-1"
+                className="inline-flex items-center gap-1 rounded-xl backdrop-blur-md p-1
+                   bg-white/50 dark:bg-gray-800/50"
                 aria-label="Pagination"
             >
                 {/* Prev */}
                 <Link
                     href={createHref(Math.max(currentPage - 1, 1))}
                     aria-disabled={currentPage === 1}
-                    className={`flex h-9 w-9 items-center justify-center rounded-lg text-gray-600 transition 
+                    className={`flex h-9 w-9 items-center justify-center rounded-lg transition 
+            text-gray-600 dark:text-gray-300
             ${currentPage === 1
                             ? "pointer-events-none opacity-40"
-                            : "hover:bg-gray-100 hover:text-gray-900"
+                            : "hover:bg-gray-100 hover:text-gray-900 dark:hover:bg-gray-700 dark:hover:text-white"
                         }`}
                 >
                     ‹
                 </Link>
 
-                {/* Pages + ellipsis */}
+                {/* Pages */}
                 {pages.map((p, idx) =>
                     typeof p === "number" ? (
                         <Link
@@ -70,8 +69,8 @@ export default function Pagination({
                             href={createHref(p)}
                             className={`flex h-9 w-9 items-center justify-center rounded-lg text-sm font-medium transition
                 ${currentPage === p
-                                    ? "bg-gray-900 text-white shadow-sm"
-                                    : "text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                                    ? "border-2 border-gray-300 shadow-sm dark:bg-gray-100 dark:text-gray-900"
+                                    : "text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white"
                                 }`}
                         >
                             {p}
@@ -79,7 +78,7 @@ export default function Pagination({
                     ) : (
                         <span
                             key={idx}
-                            className="flex h-9 w-9 items-center justify-center text-gray-400"
+                            className="flex h-9 w-9 items-center justify-center text-gray-400 dark:text-gray-500"
                         >
                             {p}
                         </span>
@@ -90,10 +89,11 @@ export default function Pagination({
                 <Link
                     href={createHref(Math.min(currentPage + 1, totalPages))}
                     aria-disabled={currentPage === totalPages}
-                    className={`flex h-9 w-9 items-center justify-center rounded-lg text-gray-600 transition
+                    className={`flex h-9 w-9 items-center justify-center rounded-lg transition 
+            text-gray-600 dark:text-gray-300
             ${currentPage === totalPages
                             ? "pointer-events-none opacity-40"
-                            : "hover:bg-gray-100 hover:text-gray-900"
+                            : "hover:bg-gray-100 hover:text-gray-900 dark:hover:bg-gray-700 dark:hover:text-white"
                         }`}
                 >
                     ›
