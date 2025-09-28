@@ -1,6 +1,8 @@
 import Pagination from "@/src/components/common/Pagination";
 import MembersTable from "@/src/components/tables/MembersTable";
 import { getUsersWithLastMembership } from "@/src/services/clients";
+import AdminPageWrapper from "@/components/admin/AdminPageWrapper";
+import { Button } from "@/components/ui/button";
 
 type SearchParams = Promise<{
     query?: string;
@@ -29,10 +31,19 @@ export default async function ClientesPage({
 
 
     return (
-        <main>
-            <h1 className="text-2xl font-bold mb-4">Clientes</h1>
+        <AdminPageWrapper
+            title="Gestión de Miembros"
+            actionButton={
+                <Button
+                    
 
-            {/* Tabla de clientes */}
+                    
+                >
+                    Agregar Miembro
+                </Button>
+            }
+        >
+            {/* Tabla de miembros */}
             <MembersTable data={users} />
 
             {/* Paginación */}
@@ -41,6 +52,6 @@ export default async function ClientesPage({
                 totalPages={users?.totalPages || 1}
                 pathname="/admin/members"
             />
-        </main>
+        </AdminPageWrapper>
     );
 }
