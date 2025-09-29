@@ -11,10 +11,6 @@ export default function Home() {
             <section>
                 <GymHome />
             </section>
-            {/* Precios */}
-            <section className="flex flex-col justify-center items-center text-center px-4 py-5">
-               
-            </section>
 
             <section>
 

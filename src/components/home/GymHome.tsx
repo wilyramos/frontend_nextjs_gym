@@ -3,7 +3,7 @@ import Image from "next/image"
 
 export default function GymHome() {
     return (
-        <section className="relative min-h-screen grid grid-cols-4 items-center px-6 md:px-10 overflow-hidden">
+        <section className="relative min-h-screen grid md:grid-cols-4 items-center px-6 md:px-10 overflow-hidden">
             {/* Columna izquierda con texto e imagen de fondo */}
             <div className="relative col-span-3 flex flex-col justify-center items-center text-center z-10">
                 {/* Imagen de fondo */}

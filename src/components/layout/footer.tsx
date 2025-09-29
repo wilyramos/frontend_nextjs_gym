@@ -12,8 +12,8 @@ import Logo from "../common/Logo";
 
 export default function Footer() {
     return (
-        <footer className="bg-background text-foreground py-12 border-t">
-            <div className="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
+        <footer className="bg-background text-foreground py-12 border-t text-xs">
+            <div className="max-w-5xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
                 {/* Logo y descripción */}
                 <div className="flex flex-col gap-4">
                     <Logo className="text-foreground" />
@@ -37,13 +37,6 @@ export default function Footer() {
                     </div>
                 </div>
 
-                {/* Enlaces */}
-                <div>
-                    <h3 className="text-lg font-semibold mb-3">Enlaces</h3>
-                    <ul className="flex flex-col gap-2 text-muted-foreground">
-                        {/* agrega enlaces si lo necesitas */}
-                    </ul>
-                </div>
 
                 {/* Contacto */}
                 <div>
@@ -67,14 +60,13 @@ export default function Footer() {
                     <ul className="flex flex-col gap-2 text-muted-foreground">
                         <li>Lunes - Viernes: 5:00 AM - 10:00 PM</li>
                         <li>Sábado: 6:00 AM - 8:00 PM</li>
-                        <li>Domingo: 8:00 AM - 6:00 PM</li>
                     </ul>
                 </div>
             </div>
 
-            <div className="mt-8 pt-6 text-center text-sm text-muted-foreground">
+            <div className="mt-8 pt-6 text-center text-xs text-muted-foreground border-t ">
                 &copy; {new Date().getFullYear()} GymFit. Todos los derechos reservados.{" "}
-                <span className="text-foreground">Developed by Wily Ramos.</span>
+                <span className="text-foreground">By Wily Ramos.</span>
             </div>
         </footer>
     );
