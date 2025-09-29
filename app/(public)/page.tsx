@@ -15,6 +15,16 @@ export default function Home() {
             <section className="flex flex-col justify-center items-center text-center px-4 py-5">
                
             </section>
+
+            <section>
+
+                <div className=" flex items-center justify-center rounded-2xl overflow-hidden">
+                {/* Contenido: ListPricing */}
+                <div className=" w-full max-w-5xl mx-auto">
+                    <ListPricing />
+                </div>
+            </div>
+            </section>
             <section>
                 <GymBenefitsCarousel />
             </section>
