@@ -11,7 +11,7 @@ export function Table({
         <div className="w-full overflow-x-auto rounded-2xl bg-white">
             <table
                 className={cn(
-                    "w-full text-sm md:text-base border-separate border-spacing-0",
+                    "w-full text-sm  border-separate border-spacing-0",
                     className
                 )}
                 {...props}

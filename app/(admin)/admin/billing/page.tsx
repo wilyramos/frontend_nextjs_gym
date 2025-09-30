@@ -1,89 +1,75 @@
-"use client";
+// File: app/(admin)/admin/billing/page.tsx
+import AdminPageWrapper from "@/components/admin/AdminPageWrapper";
+import { Button } from "@/components/ui/button";
+import {
+    Table,
+    TableHeader,
+    TableBody,
+    TableRow,
+    TableHead,
+    TableCell,
+} from "@/src/components/tables/Table";
 
-import React from "react";
-
-type Pago = {
+type Invoice = {
     id: number;
-    cliente: string;
-    fecha: string;
+    miembro: string;
     monto: string;
-    metodo: "Mercado Pago" | "Stripe" | "PayPal";
+    fecha: string;
     estado: "Pagado" | "Pendiente" | "Vencido";
 };
 
-const pagos: Pago[] = [
-    {
-        id: 1,
-        cliente: "Juan Pérez",
-        fecha: "2025-09-01",
-        monto: "$50",
-        metodo: "Mercado Pago",
-        estado: "Pagado",
-    },
-    {
-        id: 2,
-        cliente: "Ana Gómez",
-        fecha: "2025-08-28",
-        monto: "$135",
-        metodo: "Stripe",
-        estado: "Pendiente",
-    },
-    {
-        id: 3,
-        cliente: "Carlos Ruiz",
-        fecha: "2025-08-15",
-        monto: "$480",
-        metodo: "PayPal",
-        estado: "Vencido",
-    },
+const invoices: Invoice[] = [
+    { id: 1, miembro: "Juan Pérez", monto: "$50", fecha: "2025-09-01", estado: "Pagado" },
+    { id: 2, miembro: "Ana Torres", monto: "$130", fecha: "2025-09-10", estado: "Pendiente" },
+    { id: 3, miembro: "Luis Ramírez", monto: "$50", fecha: "2025-08-20", estado: "Vencido" },
 ];
 
 export default function BillingPage() {
     return (
-        <div className="p-6">
-            <h1 className="text-2xl font-bold mb-6">Facturación</h1>
-
-            <div className="overflow-x-auto bg-white rounded-xl shadow-sm">
-                <table className="w-full border-collapse">
-                    <thead>
-                        <tr className="bg-gray-100 text-left text-sm text-gray-600">
-                            <th className="p-3">Cliente</th>
-                            <th className="p-3">Fecha</th>
-                            <th className="p-3">Monto</th>
-                            <th className="p-3">Método</th>
-                            <th className="p-3">Estado</th>
-                            <th className="p-3 text-center">Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {pagos.map((pago) => (
-                            <tr key={pago.id} className="border-b text-sm">
-                                <td className="p-3">{pago.cliente}</td>
-                                <td className="p-3">{pago.fecha}</td>
-                                <td className="p-3 font-semibold">{pago.monto}</td>
-                                <td className="p-3">{pago.metodo}</td>
-                                <td className="p-3">
-                                    <span
-                                        className={`px-2 py-1 text-xs rounded-full ${pago.estado === "Pagado"
-                                                ? "bg-green-100 text-green-600"
-                                                : pago.estado === "Pendiente"
-                                                    ? "bg-yellow-100 text-yellow-600"
-                                                    : "bg-red-100 text-red-600"
-                                            }`}
-                                    >
-                                        {pago.estado}
-                                    </span>
-                                </td>
-                                <td className="p-3 text-center">
-                                    <button className="px-3 py-1 text-xs rounded bg-indigo-100 text-indigo-600 hover:bg-indigo-200">
-                                        Descargar PDF
-                                    </button>
-                                </td>
-                            </tr>
+        <AdminPageWrapper
+            title="Facturación"
+            actionButton={<Button>Registrar Pago</Button>}
+            tabs={[
+                { label: "Todas", href: "/admin/billing" },
+                { label: "Pagadas", href: "/admin/billing/paid" },
+                { label: "Pendientes", href: "/admin/billing/pending" },
+                { label: "Vencidas", href: "/admin/billing/overdue" },
+            ]}
+        >
+            <div className="overflow-x-auto">
+                <Table>
+                    <TableHeader>
+                        <TableRow>
+                            <TableHead>ID</TableHead>
+                            <TableHead>Miembro</TableHead>
+                            <TableHead>Monto</TableHead>
+                            <TableHead>Fecha</TableHead>
+                            <TableHead>Estado</TableHead>
+                        </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                        {invoices.map((invoice) => (
+                            <TableRow key={invoice.id}>
+                                <TableCell>{invoice.id}</TableCell>
+                                <TableCell>{invoice.miembro}</TableCell>
+                                <TableCell>{invoice.monto}</TableCell>
+                                <TableCell>{invoice.fecha}</TableCell>
+                                <TableCell
+                                    className={
+                                        invoice.estado === "Pagado"
+                                            ? "text-green-600"
+                                            : invoice.estado === "Pendiente"
+                                                ? "text-yellow-600"
+                                                : "text-red-600"
+                                    }
+                                >
+                                    {invoice.estado}
+                                </TableCell>
+                            </TableRow>
                         ))}
-                    </tbody>
-                </table>
+                    </TableBody>
+                </Table>
             </div>
-        </div>
+        </AdminPageWrapper>
     );
 }

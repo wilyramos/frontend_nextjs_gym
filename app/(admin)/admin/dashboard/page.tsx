@@ -4,54 +4,44 @@ import AdminPageWrapper from "@/components/admin/AdminPageWrapper";
 
 export const dynamic = "force-dynamic";
 
-
-interface MetricCardProps {
-    title: string;
-    value: number | string;
-}
-
-
-function MetricCard({ title, value }: MetricCardProps) {
-    return (
-        <div className="rounded-xl border-l-4  p-4 text-center shadow-sm">
-            <h2 className="mb-1 text-sm font-medium">{title}</h2>
-            <p className="text-2xl font-bold">{value}</p>
-        </div>
-    );
-}
-
-function Section({ title, children }: { title: string; children: React.ReactNode }) {
-    return (
-        <section className="space-y-4">
-            <h2 className="text-lg font-semibold">{title}</h2>
-            {children}
-        </section>
-    );
-}
-
 export default async function DashboardPage() {
     const data = await getDashboardMetrics();
 
     return (
-        <AdminPageWrapper title="Dashboard">
+        <AdminPageWrapper
+            title="Dashboard"
+            tabs={[
+                { label: "General", href: "/admin/dashboard" },
+                { label: "Reportes", href: "/admin/dashboard/reports" },
+                { label: "Configuración", href: "/admin/dashboard/settings" },
+            ]}
+        >
             {/* Métricas principales */}
-            <Section title="Panel de Administración">
-                <div className="grid gap-6 md:grid-cols-3">
-                    <MetricCard title="Usuarios Activos" value={data.activeUsers} />
-                    <MetricCard
-                        title="Membresías a Punto de Expirar (7 días)"
-                        value={data.expiringMemberships}
-                    />
-                    <MetricCard title="Total de Ingresos" value={data.totalIncome} />
+            <section>
+                <h2 className="text-lg font-semibold mb-4">Panel de Administración</h2>
+                <div className="grid gap-4 md:grid-cols-3">
+                    <div className="p-4 rounded-md border shadow-xs text-center">
+                        <p className="text-xs">Usuarios Activos</p>
+                        <p className="text-2xl font-bold">{data.activeUsers}</p>
+                    </div>
+                    <div className="p-4 rounded-md border shadow-xs text-center">
+                        <p className="text-xs">Membresías por expirar (7 días)</p>
+                        <p className="text-2xl font-bold">{data.expiringMemberships}</p>
+                    </div>
+                    <div className="p-4 rounded-md border shadow-xs text-center">
+                        <p className="text-xs">Total de Ingresos</p>
+                        <p className="text-2xl font-bold">{data.totalIncome}</p>
+                    </div>
                 </div>
-            </Section>
+            </section>
 
             {/* Actividades recientes */}
-            <Section title="Resumen de Actividades Recientes">
-                <div className="rounded-lg p-6 shadow-sm">
-                    
+            <section className="mt-8">
+                <h2 className="text-lg font-semibold mb-4">Resumen de Actividades Recientes</h2>
+                <div className="p-4 rounded-md border shadow-sm">
+                    {/* Aquí puedes agregar la lista de actividades */}
                 </div>
-            </Section>
+            </section>
         </AdminPageWrapper>
     );
 }

@@ -10,6 +10,7 @@ import {
     TableHead,
     TableCell,
 } from "@/src/components/tables/Table";
+import { Button } from "@/components/ui/button";
 
 type Coach = {
     id: number;
@@ -45,7 +46,14 @@ const coaches: Coach[] = [
 
 export default function CoachesPage() {
     return (
-        <AdminPageWrapper title="Entrenadores">
+        <AdminPageWrapper
+            title="Entrenadores"
+            actionButton={<Button>Agregar Entrenador</Button>}
+            tabs={[
+                { label: "Listado", href: "/admin/coaches" },
+                { label: "Especialidades", href: "/admin/coaches/specialties" },
+            ]}
+        >
             <div className="overflow-x-auto">
                 <Table>
                     <TableHeader>
@@ -53,7 +61,7 @@ export default function CoachesPage() {
                             <TableHead className="w-16">ID</TableHead>
                             <TableHead>Nombre</TableHead>
                             <TableHead>Especialidad</TableHead>
-                            <TableHead>Número de Clientes</TableHead>
+                            <TableHead>Clientes</TableHead>
                             <TableHead>Horarios</TableHead>
                         </TableRow>
                     </TableHeader>
@@ -61,16 +69,21 @@ export default function CoachesPage() {
                     <TableBody>
                         {coaches.map((coach) => (
                             <TableRow key={coach.id}>
-                                <TableCell className="text-gray-700">{coach.id}</TableCell>
-                                <TableCell className="text-gray-700">{coach.nombre}</TableCell>
-                                <TableCell className="text-gray-700">{coach.especialidad}</TableCell>
-                                <TableCell className="text-gray-700">{coach.clientes}</TableCell>
-                                <TableCell className="text-gray-700">
-                                    <ul>
+                                <TableCell>{coach.id}</TableCell>
+                                <TableCell>{coach.nombre}</TableCell>
+                                <TableCell>{coach.especialidad}</TableCell>
+                                <TableCell>{coach.clientes}</TableCell>
+                                <TableCell>
+                                    <div className="flex flex-wrap gap-1">
                                         {coach.horarios.map((horario, index) => (
-                                            <li key={index}>{horario}</li>
+                                            <span
+                                                key={index}
+                                                className="px-2 py-1 text-xs bg-blue-100 text-blue-800 rounded-full"
+                                            >
+                                                {horario}
+                                            </span>
                                         ))}
-                                    </ul>
+                                    </div>
                                 </TableCell>
                             </TableRow>
                         ))}
