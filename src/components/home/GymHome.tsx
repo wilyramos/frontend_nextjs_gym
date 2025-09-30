@@ -37,7 +37,7 @@ export default function GymHome() {
                     asChild
                     className="bg-white border border-gray-300 text-gray-800 hover:bg-gray-100 hover:border-gray-400"
                 >
-                    <Link href="/signup">Comenzar</Link>
+                    <Link href="/auth/register">Comenzar</Link>
                 </Button>
             </div>
         </section>
