@@ -1,6 +1,6 @@
 import getToken from "../auth/token";
 import type { TPaginatedUsers } from "../types";
-import { PaginatedUsersWithMembershipsSchema } from "../types";
+import { PaginatedUsersWithMembershipsSchema, UserWithMembershipsSchema } from "../types";
 
 
 
@@ -91,5 +91,28 @@ export async function getUsersWithLastMembership(
     } catch (error) {
 
         console.error("Error fetching users:", error);
+    }
+}
+
+export async function getUserById(userId: number) {
+    try {
+        const token = await getToken();
+        const url = `${process.env.API_URL}/users/${userId}`;
+
+        const response = await fetch(url, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+            cache: "no-store",
+        });
+
+        const data = await response.json();
+
+        console.log("User data:", data);
+        return UserWithMembershipsSchema.parse(data);
+
+    } catch (error) {
+        console.error("Error fetching user by ID:", error);
+        throw error;
     }
 }

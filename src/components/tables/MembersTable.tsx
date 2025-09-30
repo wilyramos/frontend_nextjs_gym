@@ -9,7 +9,7 @@ import {
     TableCell,
 } from "@/src/components/tables/Table";
 import { TPaginatedUsersWithMemberships } from "@/src/types";
-import { formatDateOnly } from "@/lib/helpers";
+import Link from "next/link";
 
 export default function GymMembersTable({
     data,
@@ -22,54 +22,51 @@ export default function GymMembersTable({
 
     return (
         <div className="overflow-x-auto">
-            <Table>
+            <Table className="text-sm">
                 <TableHeader>
                     <TableRow>
-                        <TableHead className="w-16">ID</TableHead>
-                        <TableHead>Nombre</TableHead>
-                        <TableHead>Email</TableHead>
-                        <TableHead>Teléfono</TableHead>
-                        <TableHead>Estado</TableHead>
-                        <TableHead>Inicio</TableHead>
-                        <TableHead>Fin</TableHead>
+                        <TableHead>Miembro</TableHead>
+                        <TableHead>Email/Correo</TableHead>
                     </TableRow>
                 </TableHeader>
 
                 <TableBody>
                     {data.data.map((member) => {
                         const m = member.memberships?.[0]; // última membresía
+                        const href = `/admin/members/${member.id}`;
+
                         return (
-                            <TableRow key={member.id} className="hover:bg-gray-50">
-                                <TableCell className="font-medium">{member.id}</TableCell>
-                                <TableCell className="font-medium">{member.name}</TableCell>
-                                <TableCell>{member.email}</TableCell>
-                                <TableCell>
-                                    {member.phone && member.phone.trim() !== "" ? member.phone : "—"}
+                            <TableRow
+                                key={member.id}
+                                className="hover:bg-gray-50 cursor-pointer"
+                            >
+                                {/* Nombre + Estado */}
+                                <TableCell className="font-medium">
+                                    <Link href={href} className="block w-full h-full">
+                                        <div className="flex flex-col">
+                                            <span>{member.name}</span>
+                                            <span
+                                                className={`text-xs ${m?.status === "ACTIVE"
+                                                        ? "text-green-600 font-semibold"
+                                                        : "text-red-300 font-semibold"
+                                                    }`}
+                                            >
+                                                {m ? m.status : "Sin membresía"}
+                                            </span>
+                                        </div>
+                                    </Link>
                                 </TableCell>
 
-                                {/* Estado de la membresía */}
+                                {/* Email */}
                                 <TableCell>
-                                    {m ? (
-                                        <span
-                                            className={
-                                                m.status === "ACTIVE"
-                                                    ? "text-green-600 font-semibold"
-                                                    : "text-red-600 font-semibold"
-                                            }
-                                        >
-                                            {m.status}
-                                        </span>
-                                    ) : (
-                                        <span className="text-gray-400">Sin membresía</span>
-                                    )}
-                                </TableCell>
-
-                                {/* Fechas */}
-                                <TableCell>
-                                    {m && m.validFrom ? formatDateOnly(m.validFrom) : "—"}
-                                </TableCell>
-                                <TableCell>
-                                    {m && m.validTo ? formatDateOnly(m.validTo) : "—"}
+                                    <Link href={href} className="block w-full h-full">
+                                        <div className="flex flex-col">
+                                            <span>{member.email}</span>
+                                            <span className="text-xs text-gray-400 italic">
+                                                {member.document}
+                                            </span>
+                                        </div>
+                                    </Link>
                                 </TableCell>
                             </TableRow>
                         );
